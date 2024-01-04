@@ -1,6 +1,8 @@
 #include "headers.h"
 #include "StMiniTreeMaker.h"
 #include "RefMfun.h"
+#include "StRoot/StRefMultCorr/CentralityMaker.h"
+#include "StRoot/StRefMultCorr/StRefMultCorr.h"
 
 
 ClassImp(StMiniTreeMaker)
@@ -12,9 +14,12 @@ StMiniTreeMaker::StMiniTreeMaker(const Char_t *name) : StMaker(name), mFillTree(
 
 	// run15 st_mtd 
 	mTriggerIDs.clear();
-	mTriggerIDs.push_back(780010);     // AuAu@9.2  minbias
-	mTriggerIDs.push_back(780020);     // AuAu@9.2  minbias 
-	// mTriggerIDs.push_back(810030);     // AuAu@7.7  minbias 
+	mTriggerIDs.push_back(640001);     // AuAu@19.6  minbias
+	mTriggerIDs.push_back(640011);     // AuAu@19.6  minbias 
+	mTriggerIDs.push_back(640021);     // AuAu@19.6  minbias 
+	mTriggerIDs.push_back(640031);     // AuAu@19.6  minbias 
+	mTriggerIDs.push_back(640041);     // AuAu@19.6  minbias 
+	mTriggerIDs.push_back(640051);     // AuAu@19.6  minbias 
 }
 //_____________________________________________________________________________
 StMiniTreeMaker::~StMiniTreeMaker()
@@ -179,7 +184,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 		hVPDVzvsTPCVz->Fill(mEvtData.mVertexZ, mEvtData.mVpdVz);
 		hVzDiff->Fill(mEvtData.mVertexZ - mEvtData.mVpdVz);
 	}
-	/*
+	
 	//for  the official centrality defination
 	StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr();
 	mRefMultCorr->init((Int_t)picoEvent->runId());
@@ -187,13 +192,13 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	mEvtData.mGRefMultCorr = mRefMultCorr->getRefMultCorr();
 	mEvtData.mEvtWeight = mRefMultCorr->getWeight();
 	mEvtData.mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
-	*/
+	
 
 	// temporary using the refmult 3 for the centrality defination
 	// base on the analysis at https://drupal.star.bnl.gov/STAR/system/files/collab_meet_spring_2023.pdf
-	mEvtData.mGRefMultCorr = picoEvent->refMult();
-	mEvtData.mEvtWeight = 1;
-	mEvtData.mCentrality =GetCentrality(mEvtData.mRefMult);
+	// mEvtData.mGRefMultCorr = picoEvent->refMult();
+	// mEvtData.mEvtWeight = 1;
+	// mEvtData.mCentrality =GetCentrality(mEvtData.mRefMult);
 	// mEvtData.mCentrality =GetCentralityRefMult3(mEvtData.mRefMult3);
 
 
@@ -220,11 +225,15 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	if(TMath::Abs(vtxPos.z())>=mMaxVtxZ) return kFALSE;
 	if(mFillHisto) hEvent->Fill(9.5);
 
-	if ( mEvtData.mnTOFMatch < PileupLimit->Eval(mEvtData.mRefMult)) 
-	{
-		hEvent->Fill(10.5);
-		// return kFALSE;
-	}
+	//pile up cut with RefMultCorr maker
+	if  ( mRefMultCorr->isPileUpEventmEvtData.mRefMult,mEvtData.mnTOFMatch,mEvtData.mVertexZ ) return kFALSE;
+	if(mFillHisto) hEvent->Fill(10.5);
+
+	// if ( mEvtData.mnTOFMatch < PileupLimit->Eval(mEvtData.mRefMult)) 
+	// {
+	// 	hEvent->Fill(10.5);
+	// 	// return kFALSE;
+	// }
 	// if( mEvtData.mRefMult > PileupLowlimit->Eval(mEvtData.mnTOFMatch) && mEvtData.mRefMult > PileupUplimit->Eval(mEvtData.mnTOFMatch) ) hEvent->Fill(10.5); // record the pile up cut
 	// if(TMath::Abs(mEvtData.mVertexZ - mEvtData.mVpdVz)>=mMaxVzDiff) return kFALSE;
 	// if(mFillHisto) hEvent->Fill(10.5);
