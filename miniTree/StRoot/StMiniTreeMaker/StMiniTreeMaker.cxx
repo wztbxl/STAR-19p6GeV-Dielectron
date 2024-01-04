@@ -226,7 +226,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	if(mFillHisto) hEvent->Fill(9.5);
 
 	//pile up cut with RefMultCorr maker
-	if  ( mRefMultCorr->isPileUpEventmEvtData.mRefMult,mEvtData.mnTOFMatch,mEvtData.mVertexZ ) return kFALSE;
+	if  ( mRefMultCorr->isPileUpEvent(mEvtData.mRefMult,mEvtData.mnTOFMatch,mEvtData.mVertexZ ) ) return kFALSE;
 	if(mFillHisto) hEvent->Fill(10.5);
 
 	// if ( mEvtData.mnTOFMatch < PileupLimit->Eval(mEvtData.mRefMult)) 
