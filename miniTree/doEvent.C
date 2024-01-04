@@ -49,6 +49,7 @@ void load(){
 	gSystem->Load("StPicoEvent");
 	gSystem->Load("StPicoDstMaker");
 	// gSystem->Load("StPicoEvent");
+	gSystem->Load("CentralityMaker");
 	gSystem->Load("StRefMultCorr");
 	gSystem->Load("StMiniTreeMaker");
 }
