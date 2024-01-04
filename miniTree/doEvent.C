@@ -51,7 +51,7 @@ void load(){
 	// gSystem->Load("StPicoEvent");
 	// gSystem->Load("CentralityMaker");
 	gSystem->Load("StRefMultCorr");
-	// gSystem->Load("StMiniTreeMaker");
+	gSystem->Load("StMiniTreeMaker");
 }
 
 void doEvent(Int_t nEvents=-1, const Char_t *inputFile="test.list", const TString outputFile="test/test.root", const Bool_t debug = kFALSE)
