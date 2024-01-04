@@ -202,6 +202,8 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	// mEvtData.mCentrality =GetCentralityRefMult3(mEvtData.mRefMult3);
 
 
+	if (mRefMultCorr->isBadRun((Int_t)picoEvent->runId())) return kFALSE;
+	hEvent->Fill(3.5);
 	if (mFillHisto) 
 	{
 		hCentrality->Fill(mEvtData.mCentrality,mEvtData.mEvtWeight);
@@ -507,6 +509,7 @@ void StMiniTreeMaker::bookHistos()
 	hEvent = new TH1D("hEvent","Event statistics",25,0,25);
 	hEvent->GetXaxis()->SetBinLabel(1, "All events");
 	hEvent->GetXaxis()->SetBinLabel(3, "minbias");
+	hEvent->GetXaxis()->SetBinLabel(4, "Good events");
 	hEvent->GetXaxis()->SetBinLabel(8, "None-Zero Vertex");
 	hEvent->GetXaxis()->SetBinLabel(9,  Form("|V_{r}|<%1.2f cm",mMaxVtxR));
 	hEvent->GetXaxis()->SetBinLabel(10, Form("|V_{z}|<%1.2f cm",mMaxVtxZ));
