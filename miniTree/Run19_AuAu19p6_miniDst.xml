@@ -9,7 +9,7 @@
 		ln -s /star/u/wangzhen/run19/Dielectron/miniTree/doEvent.C ./
 
 		starver SL23d
-		root4star -q -b ./doEvent.C\(-1,\"$FILELIST\",\"$SCRATCH/${JOBID}.root\",0\)
+		root4star -l -q -b ./doEvent.C\(-1,\"$FILELIST\",\"$SCRATCH/${JOBID}.root\",0\)
 
 	 </command>
 
