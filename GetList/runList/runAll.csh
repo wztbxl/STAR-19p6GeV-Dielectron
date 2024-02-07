@@ -6,7 +6,7 @@ if [ $# -ne 1 ]; then
 	 exit 1
 fi
 
-dir="/star/u/wangzhen/run20/Dielectron/DataQA/runList"
+dir="/star/u/wangzhen/run19/Dielectron/GetList/runList"
 echo $dir
 
 if [ ! -d $dir/output_$1 ]; then
@@ -36,7 +36,7 @@ fi
 cp run.con runAll_$1.job
   
 ifile=0
-for FILE in `cat /star/u/wangzhen/run20/Dielectron/DataQA/runList/mydatalist_$1`
+for FILE in `cat /star/u/wangzhen/run19/Dielectron/GetList/runList/mydatalist_$1`
 do
      echo $FILE
      cp ./run.csh script_$1/$1_$ifile.csh
