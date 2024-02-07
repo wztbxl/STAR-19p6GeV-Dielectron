@@ -157,6 +157,7 @@ bool passEvent(miniDst const* const event)
 	Int_t   mCentrality  = event->mCentrality;
 	Int_t	refMult 	 = event->mRefMult;
 	Int_t mnTOFMatch = event->mnTOFMatch;
+	Float_t zdcRate = event->mZDCRate;
 	Float_t vx           = event->mVertexX;
 	Float_t vy           = event->mVertexY;
 	Float_t vz           = event->mVertexZ;
@@ -172,7 +173,7 @@ bool passEvent(miniDst const* const event)
 		return kFALSE;
 	}
 	mRefMultCorr->init((Int_t)runId);
-	mRefMultCorr->initEvent(refMult,vz,mEvtData.mZDCRate);
+	mRefMultCorr->initEvent(refMult,vz,zdcRate);
 	Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
 	Double_t reweight  = mRefMultCorr->getWeight();
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
