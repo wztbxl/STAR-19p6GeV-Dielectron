@@ -1,6 +1,6 @@
 #include "iostream.h"
 
-void split(const Char_t *infile = "data.list", const Int_t NUM = 40)
+void split(const Char_t *infile = "data.list", const Int_t NUM = 100)
 {
 	gROOT->Reset();
 
@@ -24,7 +24,7 @@ void split(const Char_t *infile = "data.list", const Int_t NUM = 40)
 		if  ( inputStream->good() ) {
 			if(i%NUM==0) {
 				if(outData.is_open()) outData.close();
-				sprintf(outputfile,"/star/u/wangzhen/run20/Dielectron/DataQA/runList/myfilelist_all/%d.list",i/NUM);//set my path 
+				sprintf(outputfile,"./myfilelist_all/%d.list",i/NUM);//set my path 
 				outData.open(outputfile);
 				outDataList << outputfile << endl;
 			}
