@@ -125,9 +125,13 @@ bool passEvent(miniDst const* const event)
 	Bool_t is001Trigger = kFALSE;
 	Bool_t is021Trigger = kFALSE;
 	for(Int_t i=0; i<event->mNTrigs; i++){
-		if(event->mTrigId[i] == 780010) validTrig = kTRUE, is001Trigger = kTRUE, RefMVzCorFlag= kTRUE;
+		if(event->mTrigId[i] == 640001) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640011) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640021) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640031) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640041) validTrig = kTRUE;
 		//if(event->mTrigId[i] == 580011) validTrig = kTRUE;
-		if(event->mTrigId[i] == 780020) validTrig = kTRUE, is021Trigger = kTRUE;
+		if(event->mTrigId[i] == 640051) validTrig = kTRUE;
 	}
 	if(!validTrig){
 		return kFALSE;
@@ -152,7 +156,7 @@ bool passEvent(miniDst const* const event)
 	}
 	Int_t   mCentrality  = event->mCentrality;
 	Int_t	refMult 	 = event->mRefMult;
-  Int_t mnTOFMatch = event->mnTOFMatch;
+	Int_t mnTOFMatch = event->mnTOFMatch;
 	Float_t vx           = event->mVertexX;
 	Float_t vy           = event->mVertexY;
 	Float_t vz           = event->mVertexZ;
@@ -162,8 +166,13 @@ bool passEvent(miniDst const* const event)
 
 	//for  the official centrality defination
 	StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr();
-	mRefMultCorr->init((Int_t)picoEvent->runId());
-	mRefMultCorr->initEvent(mEvtData.mRefMult,mEvtData.mVertexZ,mEvtData.mZDCRate);
+	//using offical badrun list
+	if (mRefMultCorr->isBadRun(runId))
+	{
+		return kFALSE;
+	}
+	mRefMultCorr->init((Int_t)runId);
+	mRefMultCorr->initEvent(refMult,vz,mEvtData.mZDCRate);
 	Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
 	Double_t reweight  = mRefMultCorr->getWeight();
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
@@ -259,7 +268,7 @@ bool Init()
 	cout<<endl;
 
 	ifstream indata;
-	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
+	indata.open("/star/u/wangzhen/run19/Dielectron/GetList/runList/RunList/mTotalRunList.dat");
 	mTotalRunId.clear();
 	if(indata.is_open()){
 		cout<<"read in total run number list and recode run number ...";
@@ -278,7 +287,7 @@ bool Init()
 	
 	//read in bad run for 580001 and 580021
 	ifstream indata_001;
-	indata_001.open("/star/u/wangzhen/run20/Dielectron/BadRunList/BadRunList.dat");
+	indata_001.open("/star/u/wangzhen/run19/Dielectron/BadRunList/BadRunList.dat");
 	mBadRunId_001.clear();
 	if(indata_001.is_open()){
 		cout<<"read in total run number list and recode run number ...";
