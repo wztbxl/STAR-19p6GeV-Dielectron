@@ -99,8 +99,12 @@ Int_t main(Int_t argc, char** argv)
 		
 		bool eventflag=kFALSE;
 		for(Int_t i=0;i<event->mNTrigs;i++){
-			if(event->mTrigId[i] == 780010) eventflag = kTRUE; //minbias
-			if(event->mTrigId[i] == 780020) eventflag = kTRUE; //minbias
+			if(event->mTrigId[i] == 640001) eventflag = kTRUE; //19.6 minbias
+			if(event->mTrigId[i] == 640011) eventflag = kTRUE; //19.6 minbias
+			if(event->mTrigId[i] == 640021) eventflag = kTRUE; //19.6 minbias
+			if(event->mTrigId[i] == 640031) eventflag = kTRUE; //19.6 minbias
+			if(event->mTrigId[i] == 640041) eventflag = kTRUE; //19.6 minbias
+			if(event->mTrigId[i] == 640051) eventflag = kTRUE; //19.6 minbias
 		}
 		if(!eventflag) continue;
 

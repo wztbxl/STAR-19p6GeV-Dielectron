@@ -193,6 +193,7 @@ Bool_t StMiniTreeMaker::processPicoEvent()
 	mEvtData.mEvtWeight = mRefMultCorr->getWeight();
 	mEvtData.mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
 	
+	hGRefMultvsGRefMultCorr->Fill(mEvtData.mGRefMultCorr,mEvtData.mRefMult);
 
 	// temporary using the refmult 3 for the centrality defination
 	// base on the analysis at https://drupal.star.bnl.gov/STAR/system/files/collab_meet_spring_2023.pdf
