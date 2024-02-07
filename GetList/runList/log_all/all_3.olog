@@ -1,0 +1,84 @@
+000 (7162021.000.000) 2023-04-20 07:28:48 Job submitted from host: <130.199.48.125:9618?addrs=130.199.48.125-9618&alias=rcas6005.rcf.bnl.gov&noUDP&sock=schedd_14643_6c94>
+...
+001 (7162021.000.000) 2023-04-20 07:29:11 Job executing on host: <130.199.156.242:9618?addrs=130.199.156.242-9618&alias=spool0814.sdcc.bnl.gov&noUDP&sock=startd_287052_6f07>
+...
+006 (7162021.000.000) 2023-04-20 07:29:20 Image size of job updated: 624
+	1  -  MemoryUsage of job (MB)
+	552  -  ResidentSetSize of job (KB)
+...
+006 (7162021.000.000) 2023-04-20 07:34:21 Image size of job updated: 181020
+	10  -  MemoryUsage of job (MB)
+	9876  -  ResidentSetSize of job (KB)
+...
+006 (7162021.000.000) 2023-04-20 07:36:52 Image size of job updated: 256436
+	10  -  MemoryUsage of job (MB)
+	9876  -  ResidentSetSize of job (KB)
+...
+005 (7162021.000.000) 2023-04-20 07:36:54 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:01:50, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:01:50, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.52        1         1 
+	   Disk (KB)            :     1           1   6743325 
+	   Memory (MB)          :    10        5000      5120 
+	   xferslots            :                           0 
+
+	Job terminated of its own accord at 2023-04-20T11:36:52Z.
+...
+000 (8255206.000.000) 2023-07-01 05:55:54 Job submitted from host: <130.199.48.126:9618?addrs=130.199.48.126-9618&alias=rcas6006.rcf.bnl.gov&noUDP&sock=schedd_8874_9bc4>
+...
+001 (8255206.000.000) 2023-07-01 05:56:28 Job executing on host: <130.199.156.22:9618?addrs=130.199.156.22-9618&alias=spool0279.sdcc.bnl.gov&noUDP&sock=startd_6933_4e74>
+...
+006 (8255206.000.000) 2023-07-01 05:56:29 Image size of job updated: 1
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+005 (8255206.000.000) 2023-07-01 05:56:30 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1        1   3325648 
+	   Memory (MB)          :        0     5000      5120 
+	   xferslots            :                           0 
+
+	Job terminated of its own accord at 2023-07-01T09:56:29Z.
+...
+000 (8255213.000.000) 2023-07-01 05:59:33 Job submitted from host: <130.199.48.126:9618?addrs=130.199.48.126-9618&alias=rcas6006.rcf.bnl.gov&noUDP&sock=schedd_8874_9bc4>
+...
+001 (8255213.000.000) 2023-07-01 05:59:44 Job executing on host: <130.199.200.107:9618?addrs=130.199.200.107-9618&noUDP&sock=151623_dd68_3>
+...
+006 (8255213.000.000) 2023-07-01 05:59:47 Image size of job updated: 14208
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+005 (8255213.000.000) 2023-07-01 05:59:47 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :        1        1   5106391 
+	   Memory (MB)          :        0     5000      5120 
+	   xferslots            :                           0 
+...

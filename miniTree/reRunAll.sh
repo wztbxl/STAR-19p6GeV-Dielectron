@@ -9,9 +9,9 @@ tag=0
 ifile=0
 while [ "$ifile" -le $2 ];
 do  
-    grep Goodbye /star/u/wangzhen/run20/Dielectron/miniTree/log/$1_$ifile.out
+    grep Goodbye /star/u/wangzhen/run19/Dielectron/miniTree/log/$1_$ifile.out
     if [ $? -eq 0 ]; then
-      echo "/star/u/wangzhen/run20/Dielectron/miniTree/output/$1_$ifile.root exit, skip ..."
+      echo "/star/u/wangzhen/run19/Dielectron/miniTree/output/$1_$ifile.root exit, skip ..."
     else
       echo "re-submit crashed job for miniTree/rootfiles_PicoDst/$1_$ifile.root"
       cp -f ./log/$1_$ifile.out ./log/$1_$ifile.out.old$3

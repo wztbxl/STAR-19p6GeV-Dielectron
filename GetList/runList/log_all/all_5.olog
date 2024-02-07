@@ -1,0 +1,82 @@
+000 (7162023.000.000) 2023-04-20 07:28:48 Job submitted from host: <130.199.48.125:9618?addrs=130.199.48.125-9618&alias=rcas6005.rcf.bnl.gov&noUDP&sock=schedd_14643_6c94>
+...
+001 (7162023.000.000) 2023-04-20 07:29:08 Job executing on host: <130.199.201.157:9618?addrs=130.199.201.157-9618&alias=spool0115.sdcc.bnl.gov&noUDP&sock=startd_150521_1885>
+...
+006 (7162023.000.000) 2023-04-20 07:29:17 Image size of job updated: 173060
+	8  -  MemoryUsage of job (MB)
+	7268  -  ResidentSetSize of job (KB)
+...
+006 (7162023.000.000) 2023-04-20 07:33:28 Image size of job updated: 260024
+	8  -  MemoryUsage of job (MB)
+	7268  -  ResidentSetSize of job (KB)
+...
+005 (7162023.000.000) 2023-04-20 07:33:29 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:01:44, Sys 0 00:00:01  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:01:44, Sys 0 00:00:01  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1        1   6681612 
+	   Memory (MB)          :        8     5000      5120 
+	   xferslots            :                           0 
+
+	Job terminated of its own accord at 2023-04-20T11:33:28Z.
+...
+000 (8255208.000.000) 2023-07-01 05:55:54 Job submitted from host: <130.199.48.126:9618?addrs=130.199.48.126-9618&alias=rcas6006.rcf.bnl.gov&noUDP&sock=schedd_8874_9bc4>
+...
+001 (8255208.000.000) 2023-07-01 05:56:28 Job executing on host: <130.199.149.198:9618?addrs=130.199.149.198-9618&alias=spool0598.sdcc.bnl.gov&noUDP&sock=startd_35023_6fd5>
+...
+006 (8255208.000.000) 2023-07-01 05:56:30 Image size of job updated: 1
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+005 (8255208.000.000) 2023-07-01 05:56:30 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1        1  14337397 
+	   Memory (MB)          :        0     5000      5120 
+	   xferslots            :                           0 
+
+	Job terminated of its own accord at 2023-07-01T09:56:30Z.
+...
+000 (8255215.000.000) 2023-07-01 05:59:33 Job submitted from host: <130.199.48.126:9618?addrs=130.199.48.126-9618&alias=rcas6006.rcf.bnl.gov&noUDP&sock=schedd_8874_9bc4>
+...
+001 (8255215.000.000) 2023-07-01 05:59:42 Job executing on host: <130.199.200.103:9618?addrs=130.199.200.103-9618&alias=rcas2020.rcf.bnl.gov&noUDP&sock=startd_24931_723d>
+...
+006 (8255215.000.000) 2023-07-01 05:59:44 Image size of job updated: 1
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+005 (8255215.000.000) 2023-07-01 05:59:45 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1        1   5106373 
+	   Memory (MB)          :        0     5000      5120 
+	   xferslots            :                           0 
+
+	Job terminated of its own accord at 2023-07-01T09:59:44Z.
+...
