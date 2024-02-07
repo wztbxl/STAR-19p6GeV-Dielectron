@@ -1,7 +1,8 @@
 #include "/star/u/wangzhen/run20/Dielectron/func_macro/headers.h"
 #include "/star/u/wangzhen/run20/Dielectron/func_macro/function.C"
 #include "/star/u/wangzhen/run20/Dielectron/Analysis/cuts.h"
-#include "/star/u/wangzhen/run20/Dielectron/Analysis/RefMfun.h"
+// #include "/star/u/wangzhen/run20/Dielectron/Analysis/RefMfun.h"
+#include "StRefMultCorr/StRefMultCorr.h"
 
 #include "miniDst.h"
 
@@ -158,11 +159,19 @@ bool passEvent(miniDst const* const event)
 	Float_t vr           = sqrt(vx*vx + vy*vy);    
 	Float_t vzDiff       = vz - vpdVz;
 
-    Double_t RefMultCorr = refMult;
-	// if(RefMVzCorFlag)RefMultCorr = GetRefMultCorr(refMult, vz);	
-    Double_t reweight = 1.;// no RefMultCorr!!!!	
-    // Double_t reweight = GetWeight(RefMultCorr);	
-	mCentrality = GetCentrality(RefMultCorr);
+	//for  the official centrality defination
+	StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr();
+	mRefMultCorr->init((Int_t)picoEvent->runId());
+	mRefMultCorr->initEvent(mEvtData.mRefMult,mEvtData.mVertexZ,mEvtData.mZDCRate);
+	Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
+	Double_t reweight  = mRefMultCorr->getWeight();
+	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
+    
+	// Double_t RefMultCorr = refMult;
+	// // if(RefMVzCorFlag)RefMultCorr = GetRefMultCorr(refMult, vz);	
+    // Double_t reweight = 1.;// no RefMultCorr!!!!	
+    // // Double_t reweight = GetWeight(RefMultCorr);	
+	// mCentrality = GetCentrality(RefMultCorr);
 
 
 	Float_t  mEtaPlusQx        = event->mEtaPlusQx;
