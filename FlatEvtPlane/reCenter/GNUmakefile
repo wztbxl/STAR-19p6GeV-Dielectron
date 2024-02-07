@@ -1,4 +1,4 @@
-OBJS = miniDst.o reCenter.o
+OBJS = miniDst.o reCenter.o CentralityMaker.o StRefMultCorr.o
 EXE =  reCenter
 
 #OBJS = MuDst.o createphiwgt.o
