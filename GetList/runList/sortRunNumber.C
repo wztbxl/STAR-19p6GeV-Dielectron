@@ -22,7 +22,7 @@ void sortRunNumber(int nFiles)
   for (int i = 0; i < nFiles; i++)
   {
     cout << "now at file " << i << endl;
-    TString name = Form("/star/u/wangzhen/run20/Dielectron/DataQA/runList/output_all/%d.dat",i);
+    TString name = Form("./output_all/%d.dat",i);
     ifstream infile(name.Data());
 
     while(!infile.eof())
