@@ -22,7 +22,7 @@ COMPILE = $(CXX) $(FLAGS) -c
 all: $(EXE)
 
 $(EXE): $(OBJS)
-	$(CXX) -m32 -fno-inline -o $(EXE) $(OBJS) -lSpectrum $(ROOTFLAGS) $(ROOTLIBS)
+	$(CXX) -m32 -std=c++11 -fno-inline -o $(EXE) $(OBJS) -lSpectrum $(ROOTFLAGS) $(ROOTLIBS)
 %.o: %.cxx
 	$(COMPILE)  $< 
 
