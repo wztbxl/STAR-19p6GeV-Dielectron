@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Thu Apr 20 04:28:12 2023 by ROOT version 5.34/30
+// Wed Feb  7 00:26:33 2024 by ROOT version 5.34/30
 // from TTree miniDst/miniDst
-// found on file: AAB016E8C83574C77C4DC76FE14D5B88_8.root
+// found on file: D88667F3D78CCF4B02E288EECCD209DB_2194.root
 //////////////////////////////////////////////////////////
 
 #ifndef miniDst_h
@@ -16,8 +16,6 @@
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
-const int Maxtrk = 1000;
-
 class miniDst {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -29,7 +27,8 @@ public :
    Int_t           mEventId;
    Char_t          mShouldHaveRejectEvent;
    Int_t           mNTrigs;
-   Int_t           mTrigId[1];   //[mNTrigs]
+   Int_t           mTrigId[6];   //[mNTrigs]
+   Short_t         mnTOFMatch;
    Short_t         mRefMult;
    Short_t         mGRefMult;
    Float_t         mGRefMultCorr;
@@ -52,28 +51,28 @@ public :
    Float_t         mEtaMinusPtWeight;
    Short_t         mEtaMinusNTrks;
    Short_t         mNTrks;
-   Short_t         mTrkId[Maxtrk];   //[mNTrks]
-   Bool_t          mTPCeTrkFlag[Maxtrk];   //[mNTrks]
-   Int_t           mCharge[Maxtrk];   //[mNTrks]
-   Float_t         mPt[Maxtrk];   //[mNTrks]
-   Float_t         mEta[Maxtrk];   //[mNTrks]
-   Float_t         mPhi[Maxtrk];   //[mNTrks]
-   Float_t         mgPt[Maxtrk];   //[mNTrks]
-   Float_t         mgEta[Maxtrk];   //[mNTrks]
-   Float_t         mgPhi[Maxtrk];   //[mNTrks]
-   Float_t         mgOriginX[Maxtrk];   //[mNTrks]
-   Float_t         mgOriginY[Maxtrk];   //[mNTrks]
-   Float_t         mgOriginZ[Maxtrk];   //[mNTrks]
-   Int_t           mNHitsFit[Maxtrk];   //[mNTrks]
-   Int_t           mNHitsPoss[Maxtrk];   //[mNTrks]
-   Int_t           mNHitsDedx[Maxtrk];   //[mNTrks]
-   Float_t         mDedx[Maxtrk];   //[mNTrks]
-   Float_t         mNSigmaE[Maxtrk];   //[mNTrks]
-   Float_t         mDca[Maxtrk];   //[mNTrks]
-   Int_t           mTOFMatchFlag[Maxtrk];   //[mNTrks]
-   Int_t           mTOFCellID[Maxtrk];   //[mNTrks]
-   Float_t         mTOFLocalY[Maxtrk];   //[mNTrks]
-   Float_t         mBeta2TOF[Maxtrk];   //[mNTrks]
+   Short_t         mTrkId[1000];   //[mNTrks]
+   Bool_t          mTPCeTrkFlag[1000];   //[mNTrks]
+   Int_t           mCharge[1000];   //[mNTrks]
+   Float_t         mPt[1000];   //[mNTrks]
+   Float_t         mEta[1000];   //[mNTrks]
+   Float_t         mPhi[1000];   //[mNTrks]
+   Float_t         mgPt[1000];   //[mNTrks]
+   Float_t         mgEta[1000];   //[mNTrks]
+   Float_t         mgPhi[1000];   //[mNTrks]
+   Float_t         mgOriginX[1000];   //[mNTrks]
+   Float_t         mgOriginY[1000];   //[mNTrks]
+   Float_t         mgOriginZ[1000];   //[mNTrks]
+   Int_t           mNHitsFit[1000];   //[mNTrks]
+   Int_t           mNHitsPoss[1000];   //[mNTrks]
+   Int_t           mNHitsDedx[1000];   //[mNTrks]
+   Float_t         mDedx[1000];   //[mNTrks]
+   Float_t         mNSigmaE[1000];   //[mNTrks]
+   Float_t         mDca[1000];   //[mNTrks]
+   Int_t           mTOFMatchFlag[1000];   //[mNTrks]
+   Int_t           mTOFCellID[1000];   //[mNTrks]
+   Float_t         mTOFLocalY[1000];   //[mNTrks]
+   Float_t         mBeta2TOF[1000];   //[mNTrks]
 
    // List of branches
    TBranch        *b_mRunId;   //!
@@ -82,6 +81,7 @@ public :
    TBranch        *b_mShouldHaveRejectEvent;   //!
    TBranch        *b_mNTrigs;   //!
    TBranch        *b_mTrigId;   //!
+   TBranch        *b_mnTOFMatch;   //!
    TBranch        *b_mRefMult;   //!
    TBranch        *b_mGRefMult;   //!
    TBranch        *b_mGRefMultCorr;   //!
@@ -146,9 +146,9 @@ miniDst::miniDst(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("AAB016E8C83574C77C4DC76FE14D5B88_8.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("D88667F3D78CCF4B02E288EECCD209DB_2194.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("AAB016E8C83574C77C4DC76FE14D5B88_8.root");
+         f = new TFile("D88667F3D78CCF4B02E288EECCD209DB_2194.root");
       }
       f->GetObject("miniDst",tree);
 
@@ -203,6 +203,7 @@ void miniDst::Init(TTree *tree)
    fChain->SetBranchAddress("mShouldHaveRejectEvent", &mShouldHaveRejectEvent, &b_mShouldHaveRejectEvent);
    fChain->SetBranchAddress("mNTrigs", &mNTrigs, &b_mNTrigs);
    fChain->SetBranchAddress("mTrigId", mTrigId, &b_mTrigId);
+   fChain->SetBranchAddress("mnTOFMatch", &mnTOFMatch, &b_mnTOFMatch);
    fChain->SetBranchAddress("mRefMult", &mRefMult, &b_mRefMult);
    fChain->SetBranchAddress("mGRefMult", &mGRefMult, &b_mGRefMult);
    fChain->SetBranchAddress("mGRefMultCorr", &mGRefMultCorr, &b_mGRefMultCorr);
