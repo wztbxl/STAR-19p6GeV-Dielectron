@@ -2,6 +2,7 @@
 #include "/star/u/wangzhen/run20/Dielectron/func_macro/function.C"
 #include "/star/u/wangzhen/run20/Dielectron/Analysis/cuts.h"
 // #include "/star/u/wangzhen/run20/Dielectron/Analysis/RefMfun.h"
+#include "StRefMultCorr/CentralityMaker.h"
 #include "StRefMultCorr/StRefMultCorr.h"
 
 #include "miniDst.h"
