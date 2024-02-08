@@ -109,7 +109,8 @@ Int_t main(Int_t argc, char** argv)
 		if(!eventflag) continue;
 
 		Int_t runId = event->mRunId; 
-		vector<Int_t>::iterator iter = find(runNumber.begin(), runNumber.end(), runId);
+	  // cout << runId << endl;
+    vector<Int_t>::iterator iter = find(runNumber.begin(), runNumber.end(), runId);
 		if( iter == runNumber.end() ) runNumber.push_back(runId);
 
 	} 
