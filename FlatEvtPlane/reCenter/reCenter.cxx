@@ -168,12 +168,12 @@ bool passEvent(miniDst const* const event)
 	//for  the official centrality defination
 	StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr();
 	//using offical badrun list
+	mRefMultCorr->init((Int_t)runId);
+	mRefMultCorr->initEvent(refMult,vz,zdcRate);
 	if (mRefMultCorr->isBadRun(runId))
 	{
 		return kFALSE;
 	}
-	mRefMultCorr->init((Int_t)runId);
-	mRefMultCorr->initEvent(refMult,vz,zdcRate);
 	Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
 	Double_t reweight  = mRefMultCorr->getWeight();
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
