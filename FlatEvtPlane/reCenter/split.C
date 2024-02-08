@@ -1,6 +1,6 @@
 #include "iostream.h"
 
-void split(const Char_t *infile = "./data.list", const Int_t NUM = 30)
+void split(const Char_t *infile = "./data.list", const Int_t NUM = 100)
 {
 	gROOT->Reset();
 
