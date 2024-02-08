@@ -167,23 +167,25 @@ bool passEvent(miniDst const* const event)
 
 	//for  the official centrality defination
 	StRefMultCorr* mRefMultCorr = CentralityMaker::instance()->getRefMultCorr();
-	cout << "after refMultCorr defination" << endl;
+	// cout << "after refMultCorr defination" << endl;
 	//using offical badrun list
 	mRefMultCorr->init((Int_t)runId);
-	cout << "after refMultCorr init" << endl;
+	// cout << "after refMultCorr init" << endl;
 	mRefMultCorr->initEvent(refMult,vz,zdcRate);
-	cout << "after refMultCorr initEvent" << endl;
+	// cout << "after refMultCorr initEvent" << endl;
 	if (mRefMultCorr->isBadRun(runId))
 	{
 		return kFALSE;
 	}
-	cout << "after refMultCorr isBadRun" << endl;
+	// cout << "after refMultCorr isBadRun" << endl;
 	Double_t RefMultCorr  = mRefMultCorr->getRefMultCorr();
-	cout << "after refMultCorr getRefMultCorr " << endl;
+	// cout << "after refMultCorr getRefMultCorr " << endl;
 	Double_t reweight  = mRefMultCorr->getWeight();
-	cout << "after refMultCorr getWeight" << endl;
+	// cout << "after refMultCorr getWeight" << endl;
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
-	cout << "after refMultCorr getCentralityBin9" << endl;
+	// cout << "after refMultCorr getCentralityBin9" << endl;
+	//offical pile up pileupRejection
+	if  ( mRefMultCorr->isPileUpEvent(refMult,mnTOFMatch,vz ) ) return kFALSE;
     
 	// Double_t RefMultCorr = refMult;
 	// // if(RefMVzCorFlag)RefMultCorr = GetRefMultCorr(refMult, vz);	
