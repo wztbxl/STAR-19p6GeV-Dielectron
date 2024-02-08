@@ -119,9 +119,13 @@ bool passEvent(miniDst const* const event)
 	Bool_t is001Trigger = kFALSE;
 	Bool_t is021Trigger = kFALSE;
 	for(Int_t i=0; i<event->mNTrigs; i++){
-		if(event->mTrigId[i] == 780010) validTrig = kTRUE, is001Trigger = kTRUE, RefMVzCorFlag= kTRUE;
+		if(event->mTrigId[i] == 640001) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640011) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640021) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640031) validTrig = kTRUE;
+		if(event->mTrigId[i] == 640041) validTrig = kTRUE;
 		//if(event->mTrigId[i] == 580011) validTrig = kTRUE;
-		if(event->mTrigId[i] == 780020) validTrig = kTRUE, is021Trigger = kTRUE;
+		if(event->mTrigId[i] == 640051) validTrig = kTRUE;
 	}
 	if(!validTrig){
 		return kFALSE;
@@ -246,7 +250,7 @@ bool Init()
 
 	ifstream indata;
 
-	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalRunList.dat");
+	indata.open("/star/u/wangzhen/run19/Dielectron/GetList/runList/RunList/mTotalRunList.dat");
 	mTotalRunId.clear();
 	if(indata.is_open()){
 		cout<<"read in total run number list and recode run number ...";
@@ -266,7 +270,7 @@ bool Init()
 		cout<<iter->second<<" \t"<<iter->first<<endl;
 	cout<<endl;
 
-	indata.open("/star/u/wangzhen/run20/Dielectron/DataQA/mTotalDayList.dat");
+	indata.open("/star/u/wangzhen/run19/Dielectron/GetList/runList/RunList/mTotalDayList.dat");
 	mTotalDayId.clear();
 	if(indata.is_open()){
 		cout<<"read in day number list and recode day number ...";
@@ -289,7 +293,7 @@ bool Init()
 
 	//read in bad run for 580001 and 580021
 	ifstream indata_001;
-	indata_001.open("/star/u/wangzhen/run20/Dielectron/BadRunList/BadRunList.dat");
+	indata_001.open("/star/u/wangzhen/run19/Dielectron/BadRunList/BadRunList.dat");
 	mBadRunId_001.clear();
 	if(indata_001.is_open()){
 		cout<<"read in total bad run number list and recode bad run number ...";
@@ -312,7 +316,7 @@ bool Init()
 
 
 
-    fReCenter = TFile::Open("/star/u/wangzhen/run20/Dielectron/FlatEvtPlane/reCenter/output_all/reCenter.root");
+    fReCenter = TFile::Open("/star/u/wangzhen/run19/Dielectron/FlatEvtPlane/reCenter/output_all/reCenter.root");
 	etapluszplusQx   = (TProfile2D *)fReCenter->Get("etapluszplusQx");
 	etapluszminusQx  = (TProfile2D *)fReCenter->Get("etapluszminusQx");
 	etaminuszplusQx  = (TProfile2D *)fReCenter->Get("etaminuszplusQx");

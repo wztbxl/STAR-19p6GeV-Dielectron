@@ -1,4 +1,4 @@
-OBJS = miniDst.o produceShiftFactor.o
+OBJS = miniDst.o Param.o CentralityMaker.o StRefMultCorr.o produceShiftFactor.o
 EXE =  produceShiftFactor
 
 #OBJS = MuDst.o createphiwgt.o
@@ -15,14 +15,14 @@ INCFLAGS = -I$(ROOTSYS)/include
 LDFLAGS = -L$(ROOTSYS)/lib
 
 CXX = g++
-FLAGS = -m32 -fno-inline -Wall -g $(INCFLAGS) $(LDFLAGS)
+FLAGS = -m32 -std=c++11 -fno-inline -Wall -g $(INCFLAGS) $(LDFLAGS)
 
 COMPILE = $(CXX) $(FLAGS) -c 
 
 all: $(EXE)
 
 $(EXE): $(OBJS)
-	$(CXX) -m32 -fno-inline -o $(EXE) $(OBJS) -lSpectrum $(ROOTFLAGS) $(ROOTLIBS)
+	$(CXX) -m32 -std=c++11 -fno-inline -o $(EXE) $(OBJS) -lSpectrum $(ROOTFLAGS) $(ROOTLIBS)
 %.o: %.cxx
 	$(COMPILE)  $< 
 
