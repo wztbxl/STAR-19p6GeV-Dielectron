@@ -40,7 +40,7 @@ echo "">>runAll_all.job
 echo "">>runAll_all.job
 
 ifile=0
-for FILE in `cat datalist_all`
+for FILE in `cat mydatalist_all`
 do
      echo $FILE
      echo "#!/bin/csh">>script_all/all_$ifile.csh
