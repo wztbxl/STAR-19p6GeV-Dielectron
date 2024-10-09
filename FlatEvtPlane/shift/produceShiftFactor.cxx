@@ -203,6 +203,7 @@ bool passEvent(miniDst const* const event)
 	Double_t reweight  = mRefMultCorr->getWeight();
 	// cout << "after refMultCorr getWeight" << endl;
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
+	cout << "centrality = " << mCentrality << endl;
 	// cout << "after refMultCorr getCentralityBin9" << endl;
 	//offical pile up pileupRejection
 	if  ( mRefMultCorr->isPileUpEvent(refMult,mnTOFMatch,vz ) ) return kFALSE;
