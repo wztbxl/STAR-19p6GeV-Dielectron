@@ -266,7 +266,7 @@ bool passEvent(miniDst const* const event)
 	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality);
 	mReCenterQx = mPlusQx - mMinusQx; 
 	mReCenterQy = mPlusQy - mMinusQy;
-	hRecenterQxQy[mCentrality-1]->Fill(mRawQx,mRawQy);
+	hRecenterQxQy[mCentrality-1]->Fill(mReCenterQx,mReCenterQy);
 
 	// reCenter process
 	Double_t mReCenterQx_run, mReCenterQy_run;
