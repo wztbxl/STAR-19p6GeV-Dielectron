@@ -36,9 +36,12 @@ TProfile *etaminusQx_cent;
 TProfile *etaplusQy_cent;
 TProfile *etaminusQy_cent;
 
+const int nCent = 9;
 //define histograms
 TH1D *hRawEventPlane;
 TH1D *hReCenterEventPlane;
+TH2D* hRawQxQy[nCent];
+TH2D* hRecenterQxQy[nCent];
 TProfile2D *shiftfactorcos[mArrayLength];
 TProfile2D *shiftfactorsin[mArrayLength];
 TProfile *shiftfactorcos_cent[mArrayLength];
@@ -237,6 +240,7 @@ bool passEvent(miniDst const* const event)
 
 	Double_t mRawQx = mPlusQx/mEtaPlusPtWeight - mMinusQx/mEtaMinusPtWeight; 
 	Double_t mRawQy = mPlusQy/mEtaPlusPtWeight - mMinusQy/mEtaMinusPtWeight;
+	hRawQxQy[mCentrality-1]->Fill(mRawQx,mRawQy);
 
 	TVector2 *mRawQ = new TVector2(mRawQx, mRawQy);
 	if(mRawQ->Mod() > 0){
@@ -262,6 +266,7 @@ bool passEvent(miniDst const* const event)
 	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality);
 	mReCenterQx = mPlusQx - mMinusQx; 
 	mReCenterQy = mPlusQy - mMinusQy;
+	hRecenterQxQy[mCentrality-1]->Fill(mRawQx,mRawQy);
 
 	// reCenter process
 	Double_t mReCenterQx_run, mReCenterQy_run;
@@ -309,6 +314,12 @@ void bookHistograms(char* outFile)
 		shiftfactorcos_cent[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
 		sprintf(buf,"shiftfactorsin_cent_%d",i);
 		shiftfactorsin_cent[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+	}
+
+	for(int i = 0; i < nCent; i++)
+	{
+		hRawQxQy[i] = new TH2D(Form("hRawQxQy_icent%d",i),Form("hRawQxQy_icent%d; Qx, Qy",i),400,-10,10,400,-10,10);
+		hRecenterQxQy[i] = new TH2D(Form("hRecenterQxQy_icent%d",i),Form("hRecenterQxQy_icent%d; Qx, Qy",i),400,-10,10,400,-10,10);
 	}
 
 	hRawEventPlane = new TH1D("hRawEventPlane","hRawEventPlane,Event Plane",360,0,TMath::Pi());
