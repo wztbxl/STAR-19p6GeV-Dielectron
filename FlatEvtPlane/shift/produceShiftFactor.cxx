@@ -239,8 +239,8 @@ bool passEvent(miniDst const* const event)
 	double mMinusQx = mEtaMinusQx;
 	double mMinusQy = mEtaMinusQy;
 
-	Double_t mRawQx = mPlusQx/mEtaPlusPtWeight - mMinusQx/mEtaMinusPtWeight; 
-	Double_t mRawQy = mPlusQy/mEtaPlusPtWeight - mMinusQy/mEtaMinusPtWeight;
+	Double_t mRawQx = mPlusQx - mMinusQx; 
+	Double_t mRawQy = mPlusQy - mMinusQy;
 	hRawQxQy[mCentrality]->Fill(mRawQx,mRawQy);
 
 	TVector2 *mRawQ = new TVector2(mRawQx, mRawQy);
@@ -261,10 +261,10 @@ bool passEvent(miniDst const* const event)
 	// 	mReCenterQx = mRawQx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQx->GetBinContent(runIndex+1, mCentrality);
 	// 	mReCenterQy = mRawQy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQy->GetBinContent(runIndex+1, mCentrality);
 	// }
-	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(mCentrality+2);
-	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(mCentrality+2);
-	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(mCentrality+2);
-	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality+2);
+	mPlusQx = mPlusQx-etaplusQx_cent->GetBinContent(mCentrality+2);
+	mPlusQy = mPlusQy-etaplusQy_cent->GetBinContent(mCentrality+2);
+	mMinusQx = mMinusQx-etaminusQx_cent->GetBinContent(mCentrality+2);
+	mMinusQy = mMinusQy-etaminusQy_cent->GetBinContent(mCentrality+2);
 	mReCenterQx = mPlusQx - mMinusQx; 
 	mReCenterQy = mPlusQy - mMinusQy;
 	hRecenterQxQy[mCentrality]->Fill(mReCenterQx,mReCenterQy);
@@ -272,8 +272,8 @@ bool passEvent(miniDst const* const event)
 	// reCenter process
 	Double_t mReCenterQx_run, mReCenterQy_run;
 	if(vz>0){
-		mReCenterQx_run = mRawQx/mEtaPlusPtWeight - etapluszplusQx->GetBinContent(runIndex+1, mCentrality+2) - etaminuszplusQx->GetBinContent(runIndex+1, mCentrality+2);
-		mReCenterQy_run = mRawQy/mEtaPlusPtWeight - etapluszplusQy->GetBinContent(runIndex+1, mCentrality+2) - etaminuszplusQy->GetBinContent(runIndex+1, mCentrality+2);
+		mReCenterQx_run = mRawQx - etapluszplusQx->GetBinContent(runIndex+1, mCentrality+2) - etaminuszplusQx->GetBinContent(runIndex+1, mCentrality+2);
+		mReCenterQy_run = mRawQy - etapluszplusQy->GetBinContent(runIndex+1, mCentrality+2) - etaminuszplusQy->GetBinContent(runIndex+1, mCentrality+2);
 	}
 	else{
 		mReCenterQx_run = mRawQx - etapluszminusQx->GetBinContent(runIndex+1, mCentrality+2) - etaminuszminusQx->GetBinContent(runIndex+1, mCentrality+2);
