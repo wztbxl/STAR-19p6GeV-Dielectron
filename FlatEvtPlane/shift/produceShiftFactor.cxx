@@ -203,7 +203,7 @@ bool passEvent(miniDst const* const event)
 	Double_t reweight  = mRefMultCorr->getWeight();
 	// cout << "after refMultCorr getWeight" << endl;
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
-	cout << "centrality = " << mCentrality << endl;
+	// cout << "centrality = " << mCentrality << endl;
 	// cout << "after refMultCorr getCentralityBin9" << endl;
 	//offical pile up pileupRejection
 	if  ( mRefMultCorr->isPileUpEvent(refMult,mnTOFMatch,vz ) ) return kFALSE;
@@ -224,7 +224,7 @@ bool passEvent(miniDst const* const event)
  	//  hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
 	  if(mCentrality<0)                 return kFALSE;
 	// mCentrality = GetCentrality(RefMultCorr);
-	if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
+	// if(mCentrality < 1 || mCentrality > 9 ) return kFALSE;
 
 	Float_t  mEtaPlusQx        = event->mEtaPlusQx;
 	Float_t  mEtaPlusQy        = event->mEtaPlusQy;
@@ -241,7 +241,7 @@ bool passEvent(miniDst const* const event)
 
 	Double_t mRawQx = mPlusQx/mEtaPlusPtWeight - mMinusQx/mEtaMinusPtWeight; 
 	Double_t mRawQy = mPlusQy/mEtaPlusPtWeight - mMinusQy/mEtaMinusPtWeight;
-	hRawQxQy[mCentrality-1]->Fill(mRawQx,mRawQy);
+	hRawQxQy[mCentrality]->Fill(mRawQx,mRawQy);
 
 	TVector2 *mRawQ = new TVector2(mRawQx, mRawQy);
 	if(mRawQ->Mod() > 0){
@@ -261,23 +261,23 @@ bool passEvent(miniDst const* const event)
 	// 	mReCenterQx = mRawQx - mEtaPlusNTrks*etapluszminusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQx->GetBinContent(runIndex+1, mCentrality);
 	// 	mReCenterQy = mRawQy - mEtaPlusNTrks*etapluszminusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszminusQy->GetBinContent(runIndex+1, mCentrality);
 	// }
-	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(mCentrality+1);
-	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(mCentrality+1);
-	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(mCentrality+1);
-	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality+1);
+	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(mCentrality+2);
+	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(mCentrality+2);
+	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(mCentrality+2);
+	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(mCentrality+2);
 	mReCenterQx = mPlusQx - mMinusQx; 
 	mReCenterQy = mPlusQy - mMinusQy;
-	hRecenterQxQy[mCentrality-1]->Fill(mReCenterQx,mReCenterQy);
+	hRecenterQxQy[mCentrality]->Fill(mReCenterQx,mReCenterQy);
 
 	// reCenter process
 	Double_t mReCenterQx_run, mReCenterQy_run;
 	if(vz>0){
-		mReCenterQx_run = mRawQx/mEtaPlusPtWeight - etapluszplusQx->GetBinContent(runIndex+1, mCentrality+1) - etaminuszplusQx->GetBinContent(runIndex+1, mCentrality+1);
-		mReCenterQy_run = mRawQy/mEtaPlusPtWeight - etapluszplusQy->GetBinContent(runIndex+1, mCentrality+1) - etaminuszplusQy->GetBinContent(runIndex+1, mCentrality+1);
+		mReCenterQx_run = mRawQx/mEtaPlusPtWeight - etapluszplusQx->GetBinContent(runIndex+1, mCentrality+2) - etaminuszplusQx->GetBinContent(runIndex+1, mCentrality+2);
+		mReCenterQy_run = mRawQy/mEtaPlusPtWeight - etapluszplusQy->GetBinContent(runIndex+1, mCentrality+2) - etaminuszplusQy->GetBinContent(runIndex+1, mCentrality+2);
 	}
 	else{
-		mReCenterQx_run = mRawQx - etapluszminusQx->GetBinContent(runIndex+1, mCentrality+1) - etaminuszminusQx->GetBinContent(runIndex+1, mCentrality+1);
-		mReCenterQy_run = mRawQy - etapluszminusQy->GetBinContent(runIndex+1, mCentrality+1) - etaminuszminusQy->GetBinContent(runIndex+1, mCentrality+1);
+		mReCenterQx_run = mRawQx - etapluszminusQx->GetBinContent(runIndex+1, mCentrality+2) - etaminuszminusQx->GetBinContent(runIndex+1, mCentrality+2);
+		mReCenterQy_run = mRawQy - etapluszminusQy->GetBinContent(runIndex+1, mCentrality+2) - etaminuszminusQy->GetBinContent(runIndex+1, mCentrality+2);
 	}
 
     TVector2 *mReCenterQ = new TVector2(mReCenterQx, mReCenterQy);
