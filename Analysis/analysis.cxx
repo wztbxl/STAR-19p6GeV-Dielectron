@@ -503,10 +503,10 @@ int main(int argc, char** argv)
 		// }
 		
 
-		finalEventPlane = reCalEventPlane_old(event);//do not reject the electron contribution
+		// finalEventPlane = reCalEventPlane_old(event);//do not reject the electron contribution
 		// finalEventPlane = reCalEventPlane(event);//do not reject the electron contribution
 		// finalEventPlane = reCalEventPlane(event, kTRUE);//reject the electron contribution
-		// finalEventPlane = reCalEventPlane_Zhen(event,kFALSE);
+		finalEventPlane = reCalEventPlane_Zhen(event,kFALSE);
 		if(mDebug) cout << "after recal Event Plane" << endl;
 		if(finalEventPlane<0) continue;
 		eveBufferPointer = (Int_t)(finalEventPlane/TMath::Pi()*mEveBins);
