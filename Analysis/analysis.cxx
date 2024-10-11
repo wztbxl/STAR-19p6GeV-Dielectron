@@ -1703,8 +1703,10 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	// int centrality = event->mCentrality;
 
 	//get Q vector
-	Float_t Qx = mPlusQx/mEtaPlusPtWeight + mMinusQx/mEtaMinusPtWeight; 
-	Float_t Qy = mPlusQy/mEtaPlusPtWeight + mMinusQy/mEtaMinusPtWeight;
+	// Float_t Qx = mPlusQx/mEtaPlusPtWeight + mMinusQx/mEtaMinusPtWeight; 
+	// Float_t Qy = mPlusQy/mEtaPlusPtWeight + mMinusQy/mEtaMinusPtWeight;
+	Float_t Qx = mPlusQx + mMinusQx; 
+	Float_t Qy = mPlusQy + mMinusQy;
 	int dayIndex = -99;
 	map<Int_t,Int_t>::iterator iter = mTotalDayId.find((runId/1000)%1000);
 		if(iter != mTotalDayId.end())
@@ -1742,20 +1744,28 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 		}
 	}
 	//recalculate the Qx Qy with electron rejection
-	Qx = mPlusQx/mEtaPlusPtWeight + mMinusQx/mEtaMinusPtWeight; 
-	Qy = mPlusQy/mEtaPlusPtWeight + mMinusQy/mEtaMinusPtWeight;
+	// Qx = mPlusQx/mEtaPlusPtWeight + mMinusQx/mEtaMinusPtWeight; 
+	// Qy = mPlusQy/mEtaPlusPtWeight + mMinusQy/mEtaMinusPtWeight;
+	Qx = mPlusQx + mMinusQx; 
+	Qy = mPlusQy + mMinusQy;
 	double eventPlane_rejectE =  0.5*TMath::ATan2(Qy,Qx);
 	if (eventPlane_rejectE < 0.) eventPlane_rejectE += TMath::Pi();
 	hNewEventPlane->Fill(eventPlane_rejectE);
 	hQXvsQYvsRunIndex_raw->Fill(Qx,Qy,mCentrality);
-	hQXvsQYvsRunIndex_rawcenter_west->Fill(mPlusQx/mEtaPlusPtWeight,mPlusQy/mEtaPlusPtWeight,centrality);
-	hQXvsQYvsRunIndex_rawcenter_east->Fill(mMinusQx/mEtaMinusPtWeight,mMinusQy/mEtaMinusPtWeight,centrality);
+	// hQXvsQYvsRunIndex_rawcenter_west->Fill(mPlusQx/mEtaPlusPtWeight,mPlusQy/mEtaPlusPtWeight,centrality);
+	// hQXvsQYvsRunIndex_rawcenter_east->Fill(mMinusQx/mEtaMinusPtWeight,mMinusQy/mEtaMinusPtWeight,centrality);
+	hQXvsQYvsRunIndex_rawcenter_west->Fill(mPlusQx,mPlusQy,centrality);
+	hQXvsQYvsRunIndex_rawcenter_east->Fill(mMinusQx,mMinusQy,centrality);
 
 	//Do the recenter
-	mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(centrality+1);
-	mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(centrality+1);
-	mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(centrality+1);
-	mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(centrality+1);
+	// mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(centrality+1);
+	// mPlusQy = mPlusQy/mEtaPlusPtWeight-etaplusQy_cent->GetBinContent(centrality+1);
+	// mMinusQx = mMinusQx/mEtaMinusPtWeight-etaminusQx_cent->GetBinContent(centrality+1);
+	// mMinusQy = mMinusQy/mEtaMinusPtWeight-etaminusQy_cent->GetBinContent(centrality+1);
+	mPlusQx = mPlusQx-etaplusQx_cent->GetBinContent(centrality+1);
+	mPlusQy = mPlusQy-etaplusQy_cent->GetBinContent(centrality+1);
+	mMinusQx = mMinusQx-etaminusQx_cent->GetBinContent(centrality+1);
+	mMinusQy = mMinusQy-etaminusQy_cent->GetBinContent(centrality+1);
 
 	//recalculate the Qx and Qy with recenter
 	// Qx = mPlusQx/mEtaPlusPtWeight - mMinusQx/mEtaMinusPtWeight; 
