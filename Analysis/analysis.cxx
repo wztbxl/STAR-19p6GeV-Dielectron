@@ -692,8 +692,8 @@ Bool_t passEvent(miniDst* event)
 	
 
 	Int_t centrality9 = mCentrality;
-	hCentrality9->Fill(mCentrality);
-	// hCentrality9->Fill(mCentrality,reWeight);
+	// hCentrality9->Fill(mCentrality);
+	hCentrality9->Fill(mCentrality,reWeight);
 	//hCentrality9->Fill(centrality9,reWeight);
 
 	vzBufferPointer = (Int_t)((vz+mVzCut)/(2*mVzCut)*mVzBins);
@@ -1786,6 +1786,7 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	if (recenterEP < 0.) recenterEP += TMath::Pi();
 	hReCenterEventPlane->Fill(recenterEP);
 	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
+	// EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
 
 	//*********  get shift factor and add shift deltaPhi *********
 	Float_t shiftCorrcos[mArrayLength];
@@ -2672,7 +2673,7 @@ Bool_t Init()
 	PileupLowlimit->SetParameters(-6.33246e+00,7.90568e-02,3.03279e-02,-5.03738e-04,3.82206e-06,-1.30813e-08,1.64832e-11);
 	Delta_Psi2 = new TF1("Delta_Psi2","0.5*( 2*[0]*sin(2*x)-2*[1]*cos(2*x)+[3]*sin(4*x)-[2]*cos(4*x) )",-TMath::Pi(),TMath::Pi());
 	Delta_Psi2->SetParNames("<cos2#Psi_{2}>","<sin2#Psi_{2}>","<cos4#Psi_{2}>","<sin4#Psi_{2}>");
-	Delta_Psi2->SetParameters(0.00154607,0.00161089,-0.00401211,-0.00392446);
+	Delta_Psi2->SetParameters(0.000299435,0.000940712,-0.00166544,0.00155785);
 	// Delta_Psi2->SetParameters(0.001461,0.000840,0.002069,0.002289);
 	f_upper->SetParameters(6.32816,0.689232,-0.00185181,6.31563e-06,-8.29481e-09);
 	f_lower->SetParameters(-5.20165,0.144438,0.00186397,-1.28471e-05,4.28608e-08);
