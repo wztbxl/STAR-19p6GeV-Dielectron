@@ -637,6 +637,7 @@ Bool_t passEvent(miniDst* event)
 	RefMultCorr  = mRefMultCorr->getRefMultCorr();
 	// cout << "after refMultCorr getRefMultCorr " << endl;
 	Double_t reweight  = mRefMultCorr->getWeight();
+	cout << reweight << endl;
 	// cout << "after refMultCorr getWeight" << endl;
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
 	// cout << "after refMultCorr getCentralityBin9" << endl;
@@ -690,7 +691,8 @@ Bool_t passEvent(miniDst* event)
 	
 
 	Int_t centrality9 = mCentrality;
-	hCentrality9->Fill(mCentrality,reWeight);
+	hCentrality9->Fill(mCentrality);
+	// hCentrality9->Fill(mCentrality,reWeight);
 	//hCentrality9->Fill(centrality9,reWeight);
 
 	vzBufferPointer = (Int_t)((vz+mVzCut)/(2*mVzCut)*mVzBins);
