@@ -636,7 +636,7 @@ Bool_t passEvent(miniDst* event)
 	// cout << "after refMultCorr isBadRun" << endl;
 	RefMultCorr  = mRefMultCorr->getRefMultCorr();
 	// cout << "after refMultCorr getRefMultCorr " << endl;
-	Double_t reweight  = mRefMultCorr->getWeight();
+	reweight  = mRefMultCorr->getWeight();
 	cout << reweight << endl;
 	// cout << "after refMultCorr getWeight" << endl;
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
@@ -686,7 +686,7 @@ Bool_t passEvent(miniDst* event)
 	hVr->Fill(vr);
 	hVxvsVy->Fill(vx,vy);
 
-	cout << "refmult = " <<refMult << " reWeight = " << reweight << endl;
+	if (mDebug) cout << "refmult = " <<refMult << " reWeight = " << reweight << endl;
 	hRefMult->Fill(refMult,reWeight);
 	hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
 	
