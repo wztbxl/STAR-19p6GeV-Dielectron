@@ -686,6 +686,7 @@ Bool_t passEvent(miniDst* event)
 	hVr->Fill(vr);
 	hVxvsVy->Fill(vx,vy);
 
+	cout << "refmult = " <<refMult << " reWeight = " << reweight << endl;
 	hRefMult->Fill(refMult,reWeight);
 	hnTofHitsvsRefMult->Fill(refMult,mnTOFMatch);
 	
