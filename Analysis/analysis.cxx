@@ -636,8 +636,8 @@ Bool_t passEvent(miniDst* event)
 	// cout << "after refMultCorr isBadRun" << endl;
 	RefMultCorr  = mRefMultCorr->getRefMultCorr();
 	// cout << "after refMultCorr getRefMultCorr " << endl;
-	reweight  = mRefMultCorr->getWeight();
-	cout << reweight << endl;
+	reWeight  = mRefMultCorr->getWeight();
+	cout << reWeight << endl;
 	// cout << "after refMultCorr getWeight" << endl;
 	mCentrality = mRefMultCorr->getCentralityBin9();//9 Centrality bin
 	// cout << "after refMultCorr getCentralityBin9" << endl;
