@@ -38,6 +38,10 @@ TProfile *etaplusQx_cent;
 TProfile *etaminusQx_cent;
 TProfile *etaplusQy_cent;
 TProfile *etaminusQy_cent;
+TProfile *etaplusQx_cent_RejectE;
+TProfile *etaminusQx_cent_RejectE;
+TProfile *etaplusQy_cent_RejectE;
+TProfile *etaminusQy_cent_RejectE;
 TH1F *hRefMult;
 TH1F *hRefMultCorZ;
 TH1F *hRefMultCor;
@@ -266,6 +270,69 @@ bool passEvent(miniDst const* const event)
 	// 	}
 	// }
 
+	//add the electron selection cut to reject the electrons
+	Int_t npTrks = event->mNTrks;
+	for(int j=0;j<npTrks;j++)
+	{
+		Int_t charge = event->mCharge[i];
+		Int_t nHitsFit = event->mNHitsFit[i];
+		Int_t nHitsDedx = event->mNHitsDedx[i];
+		Int_t nHitsPoss = event->mNHitsPoss[i];
+		Float_t nSigmaE = event->mNSigmaE[i];
+		Float_t dca = event->mDca[i];
+		Float_t pt = event->mPt[i];
+		Float_t eta = event->mEta[i];
+		Float_t phi = event->mPhi[i];
+		Float_t beta2TOF = event->mBeta2TOF[i];
+		Float_t TOFLoaclY = event->mTOFLocalY[i];
+		Float_t ratio = 1.0*nHitsFit/nHitsPoss;
+		int CellID = event->mTOFCellID[i];
+		TVector3 mom;
+		mom.SetPtEtaPhi(pt,eta,phi);
+		Float_t p = mom.Mag();
+		double msquare =  -999;
+		msquare = pow(p, 2) * (1 - pow(beta2TOF, 2)) / pow(beta2TOF, 2);
+
+		if(pt<0.2 || pt>30.) continue;;
+		// if(nHitsFit<15) continue;;
+		if(nHitsFit<20) continue;;
+		if(ratio<0.52) continue;;
+		// if(nHitsDedx<20) continue;;
+		if(nHitsDedx<15) continue;;
+		// if(dca>0.8) continue;;
+		if(dca>1.) continue;;
+		if(TMath::Abs(eta)>1.) continue;;
+		if(beta2TOF<=0. || TMath::Abs(1.-1./beta2TOF)>0.025) continue;;
+		if(abs(TOFLoaclY) > 1.8) continue;;
+		Float_t mTpceNSigmaECutLow;
+		if(p<.8){
+			mTpceNSigmaECutLow = 3.0*p - 3.15; 
+		}else{
+			mTpceNSigmaECutLow = -0.75;
+		}
+		if(nSigmaE<mTpceNSigmaECutLow+mNSigmaEShift || nSigmaE>2.0+mNSigmaEShift) continue;;
+		
+		if (eta < 0)
+			{
+				mEtaMinusQx_rejectE -= pt*TMath::Cos(2*phi);
+				mEtaMinusQy_rejectE -= pt*TMath::Sin(2*phi);
+
+			} else if (eta > 0)
+			{
+				mEtaPlusQx_rejectE -= pt*TMath::Cos(2*phi);
+				mEtaPlusQy_rejectE -= pt*TMath::Sin(2*phi);
+
+	}
+
+	if(mEtaPlusNTrks > 0)
+	{
+		etaplusQx_cent_RejectE->Fill(mCentrality,mEtaPlusQx);
+		etaplusQy_cent_RejectE->Fill(mCentrality,mEtaPlusQy);
+	} else{
+		etaminusQx_cent_RejectE->Fill(mCentrality,mEtaMinusQx);
+		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy);
+	}
+
 	//pT weight
 	if(vz>0){
 		if(mEtaPlusNTrks>0){
@@ -357,6 +424,10 @@ void bookHistograms(char* outFile)
 	etaminusQx_cent = new TProfile("etaminusQx_cent","etaminusQx_cent;Centrality;Q_{x}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
 	etaplusQy_cent = new TProfile("etaplusQy_cent","etaplusQy_cent;Centrality;Q_{y}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
 	etaminusQy_cent = new TProfile("etaminusQy_cent","etaminusQy_cent;Centrality;Q_{y}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
+	etaplusQx_cent_RejectE = new TProfile("etaplusQx_cent_RejectE","etaplusQx_cent_rejectE;Centrality;Q_{x}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
+	etaminusQx_cent_RejectE = new TProfile("etaminusQx_cent_RejectE","etaminusQx_cent_rejectE;Centrality;Q_{x}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
+	etaplusQy_cent_RejectE = new TProfile("etaplusQy_cent_RejectE","etaplusQy_cent_rejectE;Centrality;Q_{y}^{#eta>0} ",mTotalCentrality,0,mTotalCentrality);
+	etaminusQy_cent_RejectE = new TProfile("etaminusQy_cent_RejectE","etaminusQy_cent_rejectE;Centrality;Q_{y}^{#eta<0} ",mTotalCentrality,0,mTotalCentrality);
 
 	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
 	hQXvsQYvsCentrality_east = new TH3F("hQXvsQYvsCentrality_east","; Qx; Qy; Centrality",300,-20,20,300,-20,20,10,0,10);
