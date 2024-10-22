@@ -327,11 +327,11 @@ bool passEvent(miniDst const* const event)
 
 	if(mEtaPlusNTrks > 0)
 	{
-		etaplusQx_cent_RejectE->Fill(mCentrality,mEtaPlusQx);
-		etaplusQy_cent_RejectE->Fill(mCentrality,mEtaPlusQy);
+		etaplusQx_cent_RejectE->Fill(mCentrality,mEtaPlusQx_rejectE);
+		etaplusQy_cent_RejectE->Fill(mCentrality,mEtaPlusQy_rejectE);
 	} else{
-		etaminusQx_cent_RejectE->Fill(mCentrality,mEtaMinusQx);
-		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy);
+		etaminusQx_cent_RejectE->Fill(mCentrality,mEtaMinusQx_rejectE);
+		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy_rejectE);
 	}
 
 	//pT weight
