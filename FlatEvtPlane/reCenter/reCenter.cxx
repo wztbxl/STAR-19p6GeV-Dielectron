@@ -274,19 +274,19 @@ bool passEvent(miniDst const* const event)
 	Int_t npTrks = event->mNTrks;
 	for(int j=0;j<npTrks;j++)
 	{
-		Int_t charge = event->mCharge[i];
-		Int_t nHitsFit = event->mNHitsFit[i];
-		Int_t nHitsDedx = event->mNHitsDedx[i];
-		Int_t nHitsPoss = event->mNHitsPoss[i];
-		Float_t nSigmaE = event->mNSigmaE[i];
-		Float_t dca = event->mDca[i];
-		Float_t pt = event->mPt[i];
-		Float_t eta = event->mEta[i];
-		Float_t phi = event->mPhi[i];
-		Float_t beta2TOF = event->mBeta2TOF[i];
-		Float_t TOFLoaclY = event->mTOFLocalY[i];
+		Int_t charge = event->mCharge[j];
+		Int_t nHitsFit = event->mNHitsFit[j];
+		Int_t nHitsDedx = event->mNHitsDedx[j];
+		Int_t nHitsPoss = event->mNHitsPoss[j];
+		Float_t nSigmaE = event->mNSigmaE[j];
+		Float_t dca = event->mDca[j];
+		Float_t pt = event->mPt[j];
+		Float_t eta = event->mEta[j];
+		Float_t phi = event->mPhi[j];
+		Float_t beta2TOF = event->mBeta2TOF[j];
+		Float_t TOFLoaclY = event->mTOFLocalY[j];
 		Float_t ratio = 1.0*nHitsFit/nHitsPoss;
-		int CellID = event->mTOFCellID[i];
+		int CellID = event->mTOFCellID[j];
 		TVector3 mom;
 		mom.SetPtEtaPhi(pt,eta,phi);
 		Float_t p = mom.Mag();
@@ -321,6 +321,7 @@ bool passEvent(miniDst const* const event)
 			{
 				mEtaPlusQx_rejectE -= pt*TMath::Cos(2*phi);
 				mEtaPlusQy_rejectE -= pt*TMath::Sin(2*phi);
+			}
 
 	}
 
