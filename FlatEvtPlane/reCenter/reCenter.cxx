@@ -330,7 +330,7 @@ bool passEvent(miniDst const* const event)
 		etaplusQx_cent_RejectE->Fill(mCentrality,mEtaPlusQx_rejectE);
 		etaplusQy_cent_RejectE->Fill(mCentrality,mEtaPlusQy_rejectE);
 	} 
-	if(mEtaMinusNTrks < 0)
+	if(mEtaMinusNTrks > 0)
 	{
 		etaminusQx_cent_RejectE->Fill(mCentrality,mEtaMinusQx_rejectE);
 		etaminusQy_cent_RejectE->Fill(mCentrality,mEtaMinusQy_rejectE);
