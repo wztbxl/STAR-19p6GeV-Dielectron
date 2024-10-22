@@ -506,7 +506,8 @@ int main(int argc, char** argv)
 		// finalEventPlane = reCalEventPlane_old(event);//do not reject the electron contribution
 		// finalEventPlane = reCalEventPlane(event);//do not reject the electron contribution
 		// finalEventPlane = reCalEventPlane(event, kTRUE);//reject the electron contribution
-		finalEventPlane = reCalEventPlane_Zhen(event,kFALSE);
+		finalEventPlane = reCalEventPlane_Zhen(event,kTRUE);
+		// finalEventPlane = reCalEventPlane_Zhen(event,kFALSE);
 		if(mDebug) cout << "after recal Event Plane" << endl;
 		if(finalEventPlane<0) continue;
 		eveBufferPointer = (Int_t)(finalEventPlane/TMath::Pi()*mEveBins);
@@ -1780,7 +1781,30 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	// mReCenterQxEast = 
 	hQXvsQYvsRunIndex_recenter_west->Fill(mPlusQx,mPlusQy,centrality);
 	hQXvsQYvsRunIndex_recenter_east->Fill(mMinusQx,mMinusQy,centrality);
+	Double_t recenterEP;
+	Double_t recenterEPEast;
+	Double_t recenterEPWest;
+	TVector2 *mReCenterQ = new TVector2(Qx, Qy);
+	TVector2 *mReCenterQWest = new TVector2(mPlusQx, mPlusQy);
+    TVector2 *mReCenterQEast = new TVector2(mMinusQx, mMinusQy);
+	if(mReCenterQ->Mod() > 0){
+		recenterEP = 0.5*mReCenterQ->Phi();
+		if(recenterEP<0.) recenterEP += TMath::Pi();
+		hReCenterEventPlane->Fill(recenterEP);
+	}
+	if(mReCenterQWest->Mod() > 0){
+		recenterEPWest = 0.5*mReCenterQWest->Phi();
+		if(recenterEPWest<0.) recenterEPWest += TMath::Pi();
+		hReCenterEventPlaneWest->Fill(recenterEPWest);
+	}
+	if(mReCenterQEast->Mod() > 0){
+		recenterEPEast = 0.5*mReCenterQEast->Phi();
+		if(recenterEPEast<0.) recenterEPEast += TMath::Pi();
+		hReCenterEventPlaneEast->Fill(recenterEPEast);
+	}
 
+	hEventPlaneWestvsEast->Fill(recenterEPEast,recenterEPWest);
+	EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
 	// Double_t recenterEP = 0.5*mRawQ.Phi();
 	Double_t recenterEP = 0.5*TMath::ATan2(Qy,Qx);
 	if (recenterEP < 0.) recenterEP += TMath::Pi();
