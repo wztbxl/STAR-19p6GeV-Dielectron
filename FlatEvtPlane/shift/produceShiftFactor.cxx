@@ -541,10 +541,10 @@ bool Init()
 	etaminusQx_cent  = (TProfile*)fReCenter->Get("etaminusQx_cent");
 	etaplusQy_cent   = (TProfile*)fReCenter->Get("etaplusQy_cent");
 	etaminusQy_cent  = (TProfile*)fReCenter->Get("etaminusQy_cent");
-	etaplusQx_cent_rejectE   = (TProfile*)fReCenter->Get("etaplusQx_cent_rejectE");
-	etaminusQx_cent_rejectE  = (TProfile*)fReCenter->Get("etaminusQx_cent_rejectE");
-	etaplusQy_cent_rejectE   = (TProfile*)fReCenter->Get("etaplusQy_cent_rejectE");
-	etaminusQy_cent_rejectE  = (TProfile*)fReCenter->Get("etaminusQy_cent_rejectE");
+	etaplusQx_cent_rejectE   = (TProfile*)fReCenter->Get("etaplusQx_cent_RejectE");
+	etaminusQx_cent_rejectE  = (TProfile*)fReCenter->Get("etaminusQx_cent_RejectE");
+	etaplusQy_cent_rejectE   = (TProfile*)fReCenter->Get("etaplusQy_cent_RejectE");
+	etaminusQy_cent_rejectE  = (TProfile*)fReCenter->Get("etaminusQy_cent_RejectE");
 
 	cout<<"Initialization DONE !!!"<<endl;
 	cout<<endl;
