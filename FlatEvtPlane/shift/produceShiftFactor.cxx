@@ -440,6 +440,14 @@ void bookHistograms(char* outFile)
 		shiftfactorcos_cent_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
 		sprintf(buf,"shiftfactorsin_cent_rejectE_%d",i);
 		shiftfactorsin_cent_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorcos_cent_east_rejectE_%d",i);
+		shiftfactorcos_cent_east_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorcos_cent_west_rejectE_%d",i);
+		shiftfactorcos_cent_west_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorsin_cent_east_rejectE_%d",i);
+		shiftfactorsin_cent_east_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
+		sprintf(buf,"shiftfactorsin_cent_west_rejectE_%d",i);
+		shiftfactorsin_cent_west_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
 	}
 	hReCenterEventPlaneEast = new TH1D("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
 	hReCenterEventPlaneWest = new TH1D("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
