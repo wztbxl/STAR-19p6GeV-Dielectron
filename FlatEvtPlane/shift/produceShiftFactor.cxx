@@ -411,10 +411,10 @@ bool passEvent(miniDst const* const event)
 			shiftfactorsin_cent[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
 			shiftfactorcos_cent_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
 			shiftfactorsin_cent_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
-			shiftfactorcos_cent_east_rejectE->Fill(mCentrality,cos(2*(j+1)*recenterEPEast));
-			shiftfactorcos_cent_west_rejectE->Fill(mCentrality,cos(2*(j+1)*recenterEPWest));
-			shiftfactorsin_cent_east_rejectE->Fill(mCentrality,sin(2*(j+1)*recenterEPEast));
-			shiftfactorsin_cent_west_rejectE->Fill(mCentrality,sin(2*(j+1)*recenterEPWest));
+			shiftfactorcos_cent_east_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPEast));
+			shiftfactorcos_cent_west_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*recenterEPWest));
+			shiftfactorsin_cent_east_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPEast));
+			shiftfactorsin_cent_west_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*recenterEPWest));
 	}
 
 	return kTRUE;
