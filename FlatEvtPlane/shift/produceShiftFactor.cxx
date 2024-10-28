@@ -47,12 +47,18 @@ TH1D *hReCenterEventPlane;
 TH1D* hReCenterEventPlane_rejectE;
 TH2D* hRawQxQy[nCent];
 TH2D* hRecenterQxQy[nCent];
+TH1D* hReCenterEventPlaneEast;
+TH1D* hReCenterEventPlaneWest;
 TProfile2D *shiftfactorcos[mArrayLength];
 TProfile2D *shiftfactorsin[mArrayLength];
 TProfile *shiftfactorcos_cent[mArrayLength];
 TProfile *shiftfactorsin_cent[mArrayLength];
 TProfile *shiftfactorcos_cent_rejectE[mArrayLength];
 TProfile *shiftfactorsin_cent_rejectE[mArrayLength];
+TProfile *shiftfactorcos_cent_east_rejectE[mArrayLength];
+TProfile *shiftfactorcos_cent_west_rejectE[mArrayLength];
+TProfile *shiftfactorsin_cent_east_rejectE[mArrayLength];
+TProfile *shiftfactorsin_cent_west_rejectE[mArrayLength];
 
 int main(int argc, char** argv)
 {
@@ -328,6 +334,8 @@ bool passEvent(miniDst const* const event)
 	// reCenter process
 	Double_t mReCenterQx, mReCenterQy;
 	Double_t mReCenterQx_rejectE, mReCenterQy_rejectE;
+	Double_t mReCenterQx_east, mReCenterQy_east; 
+	Double_t mReCenterQx_west, mReCenterQy_west; 
 	// if(vz>0){
 	// 	mReCenterQx = mRawQx - mEtaPlusNTrks*etapluszplusQx->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszplusQx->GetBinContent(runIndex+1, mCentrality);
 	// 	mReCenterQy = mRawQy - mEtaPlusNTrks*etapluszplusQy->GetBinContent(runIndex+1, mCentrality) - mEtaMinusNTrks*etaminuszplusQy->GetBinContent(runIndex+1, mCentrality);
@@ -348,6 +356,10 @@ bool passEvent(miniDst const* const event)
 	mReCenterQy = mPlusQy + mMinusQy;
 	mReCenterQx_rejectE = mPlusQx_rejectE+mPlusQy_rejectE;
 	mReCenterQy_rejectE = mPlusQy_rejectE+mMinusQy_rejectE;
+	mReCenterQx_east = mMinusQx_rejectE;
+	mReCenterQy_east = mMinusQy_rejectE;
+	mReCenterQx_west = mPlusQx_rejectE;
+	mReCenterQy_west = mPlusQy_rejectE;
 	hRecenterQxQy[mCentrality]->Fill(mReCenterQx,mReCenterQy);
 
 	// reCenter process
@@ -362,9 +374,13 @@ bool passEvent(miniDst const* const event)
 	}
 
     TVector2 *mReCenterQ = new TVector2(mReCenterQx, mReCenterQy);
+	TVector2 *mReCenterQEast = new TVector2(mReCenterQx_east, mReCenterQy_east);
+    TVector2 *mReCenterQWest = new TVector2(mReCenterQx_west, mReCenterQy_west);
     TVector2 *mReCenterQ_rejectE = new TVector2(mReCenterQx_rejectE, mReCenterQy_rejectE);
 	Double_t mReCenterEventPlane;
 	Double_t mReCenterEventPlane_rejectE;
+	Double_t recenterEPEast;
+	Double_t recenterEPWest;
 	if(mReCenterQ->Mod() > 0){
 		mReCenterEventPlane = 0.5*TMath::ATan2(mReCenterQy,mReCenterQx);
 		// mReCenterEventPlane = 0.5*mReCenterQ->Phi();
@@ -377,6 +393,16 @@ bool passEvent(miniDst const* const event)
 		if(mReCenterEventPlane_rejectE<0.) mReCenterEventPlane_rejectE += TMath::Pi();
 		hReCenterEventPlane_rejectE->Fill(mReCenterEventPlane_rejectE);
 	}
+		if(mReCenterQWest->Mod() > 0){
+		recenterEPWest = 0.5*mReCenterQWest->Phi();
+		if(recenterEPWest<0.) recenterEPWest += TMath::Pi();
+		hReCenterEventPlaneWest->Fill(recenterEPWest);
+	}
+	if(mReCenterQEast->Mod() > 0){
+		recenterEPEast = 0.5*mReCenterQEast->Phi();
+		if(recenterEPEast<0.) recenterEPEast += TMath::Pi();
+		hReCenterEventPlaneEast->Fill(recenterEPEast);
+	}
 
 	for(Int_t j=0; j<mArrayLength; j++){
 			shiftfactorcos[j]->Fill(dayIndex,mCentrality,cos(2*(j+1)*mReCenterEventPlane));
@@ -385,6 +411,10 @@ bool passEvent(miniDst const* const event)
 			shiftfactorsin_cent[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
 			shiftfactorcos_cent_rejectE[j]->Fill(mCentrality,cos(2*(j+1)*mReCenterEventPlane));
 			shiftfactorsin_cent_rejectE[j]->Fill(mCentrality,sin(2*(j+1)*mReCenterEventPlane));
+			shiftfactorcos_cent_east_rejectE->Fill(mCentrality,cos(2*(j+1)*recenterEPEast));
+			shiftfactorcos_cent_west_rejectE->Fill(mCentrality,cos(2*(j+1)*recenterEPWest));
+			shiftfactorsin_cent_east_rejectE->Fill(mCentrality,sin(2*(j+1)*recenterEPEast));
+			shiftfactorsin_cent_west_rejectE->Fill(mCentrality,sin(2*(j+1)*recenterEPWest));
 	}
 
 	return kTRUE;
@@ -411,6 +441,8 @@ void bookHistograms(char* outFile)
 		sprintf(buf,"shiftfactorsin_cent_rejectE_%d",i);
 		shiftfactorsin_cent_rejectE[i] = new TProfile(buf,buf,mTotalCentrality,0,mTotalCentrality);
 	}
+	hReCenterEventPlaneEast = new TH1D("hReCenterEventPlaneEast","hReCenterEventPlaneEast;Reaction Plane East (rad); Counts",300,0,TMath::Pi());
+	hReCenterEventPlaneWest = new TH1D("hReCenterEventPlaneWest","hReCenterEventPlaneWest;Reaction Plane West (rad); Counts",300,0,TMath::Pi());
 
 	for(int i = 0; i < nCent; i++)
 	{

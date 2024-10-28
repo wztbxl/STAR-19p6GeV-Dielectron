@@ -169,6 +169,8 @@ TProfile2D *etaminuszminusQy;
 
 TProfile *ShiftFactorcos_cent[mArrayLength];
 TProfile *ShiftFactorsin_cent[mArrayLength];
+TProfile *ShiftFactorcos_cent_rejectE[mArrayLength];
+TProfile *ShiftFactorsin_cent_rejectE[mArrayLength];
 TProfile *etaplusQx_cent;
 TProfile *etaminusQx_cent;
 TProfile *etaplusQy_cent;
@@ -1811,6 +1813,10 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	hReCenterEventPlane->Fill(recenterEP);
 	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
 	// EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
+
+	Double_t shiftEP;
+	Double_t shiftEPEast;
+	Double_t shiftEPWest;
 
 	//*********  get shift factor and add shift deltaPhi *********
 	Float_t shiftCorrcos[mArrayLength];
