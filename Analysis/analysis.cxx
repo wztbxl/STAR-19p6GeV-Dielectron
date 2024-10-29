@@ -169,6 +169,10 @@ TProfile2D *etaminuszminusQy;
 
 TProfile *ShiftFactorcos_cent[mArrayLength];
 TProfile *ShiftFactorsin_cent[mArrayLength];
+TProfile *ShiftFactorcos_cent_east[mArrayLength];
+TProfile *ShiftFactorsin_cent_east[mArrayLength];
+TProfile *ShiftFactorcos_cent_west[mArrayLength];
+TProfile *ShiftFactorsin_cent_west[mArrayLength];
 TProfile *ShiftFactorcos_cent_rejectE[mArrayLength];
 TProfile *ShiftFactorsin_cent_rejectE[mArrayLength];
 TProfile *etaplusQx_cent;
@@ -1805,8 +1809,8 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 		hReCenterEventPlaneEast->Fill(recenterEPEast);
 	}
 
-	hEventPlaneWestvsEast->Fill(recenterEPEast,recenterEPWest);
-	EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
+	// hEventPlaneWestvsEast->Fill(recenterEPEast,recenterEPWest);
+	// EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
 	// Double_t recenterEP = 0.5*mRawQ.Phi();
 	recenterEP = 0.5*TMath::ATan2(Qy,Qx);
 	if (recenterEP < 0.) recenterEP += TMath::Pi();
@@ -1821,28 +1825,59 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	//*********  get shift factor and add shift deltaPhi *********
 	Float_t shiftCorrcos[mArrayLength];
 	Float_t shiftCorrsin[mArrayLength];
+	Float_t shiftCorrcos_east[mArrayLength];
+	Float_t shiftCorrsin_east[mArrayLength];
+	Float_t shiftCorrcos_west[mArrayLength];
+	Float_t shiftCorrsin_west[mArrayLength];
 	for(Int_t i=0;i<mArrayLength;i++){
 		// shiftCorrcos[i] = ShiftFactorcos[i]->GetBinContent(dayIndex+1,mCentrality);
 		// shiftCorrsin[i] = ShiftFactorsin[i]->GetBinContent(dayIndex+1,mCentrality);
 		shiftCorrcos[i] = ShiftFactorcos_cent[i]->GetBinContent(centrality+1);
 		shiftCorrsin[i] = ShiftFactorsin_cent[i]->GetBinContent(centrality+1);
+		shiftCorrcos_east[i] = ShiftFactorcos_cent_east[i]->GetBinContent(centrality+1);
+		shiftCorrsin_east[i] = ShiftFactorsin_cent_east[i]->GetBinContent(centrality+1);
+		shiftCorrcos_west[i] = ShiftFactorcos_cent_west[i]->GetBinContent(centrality+1);
+		shiftCorrsin_west[i] = ShiftFactorsin_cent_west[i]->GetBinContent(centrality+1);
 		// cout << "shiftCorrcos[" << i << "] = " << shiftCorrcos[i] << endl;
 		// cout << "shiftCorrsin[" << i << "] = " << shiftCorrsin[i] << endl;
 	}
 
 	Double_t deltaPhi=0;
 	for(Int_t i=0;i<mArrayLength;i++){
-		deltaPhi += 3./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
-		// deltaPhi += 1./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
+		// deltaPhi += 3./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
+		deltaPhi += 1./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
 	}
-	deltaPhi = deltaPhi/2.;
+	Double_t deltaPhi_east=0;
+	for(Int_t i=0;i<mArrayLength;i++){
+		deltaPhi_east += 1./(i+1)*(-1.*shiftCorrsin_east[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos_east[i]*sin(2.*(i+1)*recenterEP));
+	}
+	Double_t deltaPhi_west=0;
+	for(Int_t i=0;i<mArrayLength;i++){
+		// deltaPhi_east += 3./(i+1)*(-1.*shiftCorrsin[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos[i]*sin(2.*(i+1)*recenterEP));
+		deltaPhi_west += 1./(i+1)*(-1.*shiftCorrsin_west[i]*cos(2.*(i+1)*recenterEP) + shiftCorrcos_west[i]*sin(2.*(i+1)*recenterEP));
+	}
+	deltaPhi = deltaPhi/2.;//why divide by 2? indifination it should not be
 	if(deltaPhi<0.) deltaPhi += TMath::Pi();
 	if(deltaPhi>=TMath::Pi()) deltaPhi -= TMath::Pi();
+	deltaPhi_east = deltaPhi_east/2.;//why divide by 2? indifination it should not be
+	if(deltaPhi_east<0.) deltaPhi_east += TMath::Pi();
+	if(deltaPhi_east>=TMath::Pi()) deltaPhi_east -= TMath::Pi();
+	deltaPhi_west = deltaPhi_west/2.;//why divide by 2? indifination it should not be
+	if(deltaPhi_west<0.) deltaPhi_west += TMath::Pi();
+	if(deltaPhi_west>=TMath::Pi()) deltaPhi_west -= TMath::Pi();
 	hDelta_Psi2_1D->Fill(deltaPhi);
 	double finalEP = recenterEP + deltaPhi;
 	if(finalEP<0.) finalEP += TMath::Pi();
 	if(finalEP>=TMath::Pi()) finalEP -= TMath::Pi();
+	double finalEP_east = recenterEPEast + deltaPhi_east;
+	if(finalEP_east<0.) finalEP_east += TMath::Pi();
+	if(finalEP_east>=TMath::Pi()) finalEP_east -= TMath::Pi();
+	double finalEP_west = recenterEPWest + deltaPhi_west;
+	if(finalEP_west<0.) finalEP_west += TMath::Pi();
+	if(finalEP_west>=TMath::Pi()) finalEP_west -= TMath::Pi();
 	// hDelta_Psi2->Fill(recenterEP,deltaPhi);
+	hEventPlaneWestvsEast->Fill(finalEP_east,finalEP_west);
+	EventPlanRes->Fill(mCentrality, cos(2*(finalEP_east-finalEP_west)));
 
 	double deltaPhi_2 = Delta_Psi2->Eval(recenterEP);
 	if(deltaPhi_2<0.) deltaPhi_2 += TMath::Pi();
@@ -2690,6 +2725,10 @@ Bool_t Init()
 			ShiftFactorsin[i] = (TProfile2D*)fShift->Get(Form("shiftfactorsin_%d",i));
 			ShiftFactorcos_cent[i] = (TProfile*)fShift->Get(Form("shiftfactorcos_cent_%d",i));
 			ShiftFactorsin_cent[i] = (TProfile*)fShift->Get(Form("shiftfactorsin_cent_%d",i));
+			ShiftFactorcos_cent_east[i] = (TProfile*)fShift->Get(Form("shiftfactorcos_cent_%d",i));
+			ShiftFactorsin_cent_east[i] = (TProfile*)fShift->Get(Form("shiftfactorsin_cent_%d",i));
+			ShiftFactorcos_cent_west[i] = (TProfile*)fShift->Get(Form("shiftfactorcos_cent_%d",i));
+			ShiftFactorsin_cent_west[i] = (TProfile*)fShift->Get(Form("shiftfactorsin_cent_%d",i));
 
 		}
 		cout<<" [OK]"<<endl;
