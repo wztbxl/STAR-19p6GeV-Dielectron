@@ -215,12 +215,12 @@ TH1D* hLargeDiffEvt_Day;
 TH1D* hLargeDiffEvt_vz;
 TH1D* hLargeDiffEvt_vr;
 TProfile *EventPlanRes;
-TH3F *hQXvsQYvsRunIndex;
-TH3F *hQXvsQYvsRunIndex_rawcenter_west;
-TH3F *hQXvsQYvsRunIndex_rawcenter_east;
-TH3F *hQXvsQYvsRunIndex_recenter_west;
-TH3F *hQXvsQYvsRunIndex_recenter_east;
-TH3F *hQXvsQYvsRunIndex_raw;
+// TH3F *hQXvsQYvsRunIndex;
+// TH3F *hQXvsQYvsRunIndex_rawcenter_west;
+// TH3F *hQXvsQYvsRunIndex_rawcenter_east;
+// TH3F *hQXvsQYvsRunIndex_recenter_west;
+// TH3F *hQXvsQYvsRunIndex_recenter_east;
+// TH3F *hQXvsQYvsRunIndex_raw;
 
 TH2F *hInclusiveEPhivsPt;
 TH2F *hExclusiveEPhivsPt;
@@ -1522,8 +1522,8 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	}
 	recenterEP_noFlat = recenterEP;
 	hQXvsQYvsRunIndex->Fill(mReCenterQx,mReCenterQy,mCentrality);
-	hQXvsQYvsRunIndex_recenter_west->Fill(mReCenterQxWest,mReCenterQyWest,mCentrality);
-	hQXvsQYvsRunIndex_recenter_east->Fill(mReCenterQxEast,mReCenterQyEast,mCentrality);
+	// hQXvsQYvsRunIndex_recenter_west->Fill(mReCenterQxWest,mReCenterQyWest,mCentrality);
+	// hQXvsQYvsRunIndex_recenter_east->Fill(mReCenterQxEast,mReCenterQyEast,mCentrality);
 
 	//for now just using the flat event plane to do the calculation
 	hEventPlaneWestvsEast->Fill(recenterEPEast,recenterEPWest);
@@ -1761,11 +1761,11 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	double eventPlane_rejectE =  0.5*TMath::ATan2(Qy,Qx);
 	if (eventPlane_rejectE < 0.) eventPlane_rejectE += TMath::Pi();
 	hNewEventPlane->Fill(eventPlane_rejectE);
-	hQXvsQYvsRunIndex_raw->Fill(Qx,Qy,mCentrality);
+	// hQXvsQYvsRunIndex_raw->Fill(Qx,Qy,mCentrality);
 	// hQXvsQYvsRunIndex_rawcenter_west->Fill(mPlusQx/mEtaPlusPtWeight,mPlusQy/mEtaPlusPtWeight,centrality);
 	// hQXvsQYvsRunIndex_rawcenter_east->Fill(mMinusQx/mEtaMinusPtWeight,mMinusQy/mEtaMinusPtWeight,centrality);
-	hQXvsQYvsRunIndex_rawcenter_west->Fill(mPlusQx,mPlusQy,centrality);
-	hQXvsQYvsRunIndex_rawcenter_east->Fill(mMinusQx,mMinusQy,centrality);
+	// hQXvsQYvsRunIndex_rawcenter_west->Fill(mPlusQx,mPlusQy,centrality);
+	// hQXvsQYvsRunIndex_rawcenter_east->Fill(mMinusQx,mMinusQy,centrality);
 
 	//Do the recenter
 	// mPlusQx = mPlusQx/mEtaPlusPtWeight-etaplusQx_cent->GetBinContent(centrality+1);
@@ -1785,8 +1785,8 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	Double_t mReCenterQxEast, mReCenterQyEast;
 	Double_t mReCenterQxWest, mReCenterQyWest;
 	// mReCenterQxEast = 
-	hQXvsQYvsRunIndex_recenter_west->Fill(mPlusQx,mPlusQy,centrality);
-	hQXvsQYvsRunIndex_recenter_east->Fill(mMinusQx,mMinusQy,centrality);
+	// hQXvsQYvsRunIndex_recenter_west->Fill(mPlusQx,mPlusQy,centrality);
+	// hQXvsQYvsRunIndex_recenter_east->Fill(mMinusQx,mMinusQy,centrality);
 	Double_t recenterEP;
 	Double_t recenterEPEast;
 	Double_t recenterEPWest;
@@ -1815,7 +1815,7 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	recenterEP = 0.5*TMath::ATan2(Qy,Qx);
 	if (recenterEP < 0.) recenterEP += TMath::Pi();
 	hReCenterEventPlane->Fill(recenterEP);
-	hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
+	// hQXvsQYvsRunIndex->Fill(Qx,Qy,mCentrality);
 	// EventPlanRes->Fill(mCentrality, cos(2*(recenterEPEast-recenterEPWest)));
 
 	Double_t shiftEP;
@@ -2209,12 +2209,12 @@ void bookHistograms()
 	hLargeDiffEvt_vz = new TH1D("hLargeDiffEvt_vz","hLargeDiffEvt_vz;",1200,-60,60);
 	hLargeDiffEvt_vr = new TH1D("hLargeDiffEvt_vr","hLargeDiffEvt_vr;",500,0,5);
 	EventPlanRes = new TProfile("EventPlanRes","EventPlanRes",10,-0.5,9.5);
-	hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
-	hQXvsQYvsRunIndex_raw = new TH3F("hQXvsQYvsRunIndex_raw","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
-	hQXvsQYvsRunIndex_rawcenter_west = new TH3F("hQXvsQYvsRunIndex_rawcenter_west","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
-	hQXvsQYvsRunIndex_rawcenter_east = new TH3F("hQXvsQYvsRunIndex_rawcenter_east","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
-	hQXvsQYvsRunIndex_recenter_west = new TH3F("hQXvsQYvsRunIndex_recenter_west","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
-	hQXvsQYvsRunIndex_recenter_east = new TH3F("hQXvsQYvsRunIndex_recenter_east","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
+	// hQXvsQYvsRunIndex = new TH3F("hQXvsQYvsRunIndex","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
+	// hQXvsQYvsRunIndex_raw = new TH3F("hQXvsQYvsRunIndex_raw","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
+	// hQXvsQYvsRunIndex_rawcenter_west = new TH3F("hQXvsQYvsRunIndex_rawcenter_west","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
+	// hQXvsQYvsRunIndex_rawcenter_east = new TH3F("hQXvsQYvsRunIndex_rawcenter_east","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
+	// hQXvsQYvsRunIndex_recenter_west = new TH3F("hQXvsQYvsRunIndex_recenter_west","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
+	// hQXvsQYvsRunIndex_recenter_east = new TH3F("hQXvsQYvsRunIndex_recenter_east","; Qx; Qy; Centrality",400,-10,10,400,-10,10,10,0,10);
 	
 	//histograms for v2 calculation
 	for(int i = 0; i < mCenBins; i++)
@@ -2442,12 +2442,12 @@ void writeHistograms(char* outFile)
 	hLargeDiffEvt_Day->Write();
 	hLargeDiffEvt_vz->Write();
 	hLargeDiffEvt_vr->Write();
-	hQXvsQYvsRunIndex->Write();
-	hQXvsQYvsRunIndex_raw->Write();
-	hQXvsQYvsRunIndex_rawcenter_west->Write();
-	hQXvsQYvsRunIndex_rawcenter_east->Write();
-	hQXvsQYvsRunIndex_recenter_west->Write();
-	hQXvsQYvsRunIndex_recenter_east->Write();
+	// hQXvsQYvsRunIndex->Write();
+	// hQXvsQYvsRunIndex_raw->Write();
+	// hQXvsQYvsRunIndex_rawcenter_west->Write();
+	// hQXvsQYvsRunIndex_rawcenter_east->Write();
+	// hQXvsQYvsRunIndex_recenter_west->Write();
+	// hQXvsQYvsRunIndex_recenter_east->Write();
 	cout << "writing event plane done" << endl;
 	
 	hInclusiveEPhivsPt->Write();
