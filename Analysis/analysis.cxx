@@ -139,6 +139,13 @@ TLorentzVector buffer_eMinus[mCenBins][mVzBins][mEveBins][mMaxEventsInBuffer][mM
 int buffer_ePlus_CellID[mCenBins][mVzBins][mEveBins][mMaxEventsInBuffer][mMaxElectrons];
 int buffer_eMinus_CellID[mCenBins][mVzBins][mEveBins][mMaxEventsInBuffer][mMaxElectrons];
 
+Float_t shiftCorrcos[mArrayLength];
+Float_t shiftCorrsin[mArrayLength];
+Float_t shiftCorrcos_east[mArrayLength];
+Float_t shiftCorrsin_east[mArrayLength];
+Float_t shiftCorrcos_west[mArrayLength];
+Float_t shiftCorrsin_west[mArrayLength];
+
 //***** constrain the bad dedx calibration geometry *****
 TF1 *funPosHi;
 TF1 *funPosLow;
@@ -1823,12 +1830,18 @@ Double_t reCalEventPlane_Zhen(miniDst* event, Bool_t rejElectron)
 	Double_t shiftEPWest;
 
 	//*********  get shift factor and add shift deltaPhi *********
-	Float_t shiftCorrcos[mArrayLength];
-	Float_t shiftCorrsin[mArrayLength];
-	Float_t shiftCorrcos_east[mArrayLength];
-	Float_t shiftCorrsin_east[mArrayLength];
-	Float_t shiftCorrcos_west[mArrayLength];
-	Float_t shiftCorrsin_west[mArrayLength];
+	// Float_t shiftCorrcos[mArrayLength];
+	// Float_t shiftCorrsin[mArrayLength];
+	// Float_t shiftCorrcos_east[mArrayLength];
+	// Float_t shiftCorrsin_east[mArrayLength];
+	// Float_t shiftCorrcos_west[mArrayLength];
+	// Float_t shiftCorrsin_west[mArrayLength];
+	memset(shiftCorrcos,0,sizeof(shiftCorrcos));
+	memset(shiftCorrsin,0,sizeof(shiftCorrsin));
+	memset(shiftCorrcos_east,0,sizeof(shiftCorrcos_east));
+	memset(shiftCorrsin_east,0,sizeof(shiftCorrsin_east));
+	memset(shiftCorrcos_west,0,sizeof(shiftCorrcos_west));
+	memset(shiftCorrsin_west,0,sizeof(shiftCorrsin_west));
 	for(Int_t i=0;i<mArrayLength;i++){
 		// shiftCorrcos[i] = ShiftFactorcos[i]->GetBinContent(dayIndex+1,mCentrality);
 		// shiftCorrsin[i] = ShiftFactorsin[i]->GetBinContent(dayIndex+1,mCentrality);
