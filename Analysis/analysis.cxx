@@ -1446,7 +1446,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 	if(eventPlane<0.) return eventPlane;
 
 	if(mDebug) cout << "before recenter" << endl;
-	hQXvsQYvsRunIndex_raw->Fill(Qx,Qy,mCentrality);
+	// hQXvsQYvsRunIndex_raw->Fill(Qx,Qy,mCentrality);
 	//********* get recenter number and recenter *********
 	Double_t mReCenterQx, mReCenterQy;
 	Double_t mReCenterQxEast, mReCenterQyEast;
@@ -1521,7 +1521,7 @@ Double_t reCalEventPlane(miniDst* event, Bool_t rejElectron)
 		hReCenterEventPlaneEast->Fill(recenterEPEast);
 	}
 	recenterEP_noFlat = recenterEP;
-	hQXvsQYvsRunIndex->Fill(mReCenterQx,mReCenterQy,mCentrality);
+	// hQXvsQYvsRunIndex->Fill(mReCenterQx,mReCenterQy,mCentrality);
 	// hQXvsQYvsRunIndex_recenter_west->Fill(mReCenterQxWest,mReCenterQyWest,mCentrality);
 	// hQXvsQYvsRunIndex_recenter_east->Fill(mReCenterQxEast,mReCenterQyEast,mCentrality);
 
